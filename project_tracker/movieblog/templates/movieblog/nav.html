@@ -1,0 +1,15 @@
+{% load mptt_tags %}
+<nav>
+    <li class="nav-item">
+    <form class="d-flex" method="GET" action="{% url 'movieblog:search_page' %}">
+        {{ search_form.query }}
+        <button class="btn btn-primary search-btn" type="submit">Поиск</button>
+    </form>
+    </li>
+    <!-- Навигационное меню -->
+    <a href="{% url 'movieblog:index' pk=18 slug='vse-filmy'%}">Главная</a><br>
+    <a href="{% url 'movieblog:category_page' pk=13 slug='izbrannoe' %}">Избранное</a><br>
+    <a href="{% url 'movieblog:category_page' pk=16 slug='novoe' %}">Новое</a><br>
+    <a href="{% url 'movieblog:category_page' pk=17 slug='posmotreno' %}">Посмотрено</a><br>
+    <a href="{% url 'movieblog:category_page' pk=15 slug='budu-smotret' %}">Буду смотреть</a><br>
+</nav>

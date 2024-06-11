@@ -1,0 +1,17 @@
+{% extends "movieblog/base.html" %}
+
+{% block title %}{{ film.title }}{% endblock %}
+
+{% block content %}
+    <section class="film">
+        <div class="container">
+            <h1>{{ film.title }}</h1>
+            <p>{{ film.full_body | safe }}</p>
+        </div>
+    </section>
+{% for tag in film.tags.all %}
+    <a href="{% url 'movieblog:tag_page' tag.slug %}"><span class="badge bg-success">{{ tag.name }}</span></a>
+{% endfor %}
+{% endblock %}
+
+

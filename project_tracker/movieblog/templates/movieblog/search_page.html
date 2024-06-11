@@ -1,0 +1,41 @@
+{% extends "movieblog/base.html" %}
+{% block title %}{{ query }}{% endblock %}
+
+{% block content %}
+    <section class="info">
+        <div class="container">
+            <h1>Результаты по запросу: {{ query }}</h1>
+            <hr>        </div>    </section>
+    <section class="films">
+        {% if results %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-sm-12 cat-block">
+                        {% for film in results %}
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-12 d-flex align-items-center">
+                                    <img src="{{ film.image.url }}" alt="{{ film.title }}" class="img-fluid">
+                                </div>                                <div class="col-lg-8 col-sm-12">
+                                    <h2 class="head2"><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></h2>
+                                    <div class="mb-3">
+                                        <p class="lead"><a
+                                                href="{{ film.category.get_absolute_url }}">{{ film.category }}</a>
+                                            | {{ film.director }} | {{ film.publish | date:"d F Y" }} |
+                                            Просмотров: {{ film.views }}</p>
+                                        {% for tag in film.tags.all %}
+                                            <a href="{% url 'movieblog:tag_page' tag.slug %}"><span
+                                                    class="badge bg-secondary">{{ tag.name }}</span></a>
+                                        {% endfor %}
+                                    </div>
+                                    {{ film.short_body | safe }}
+                                </div>
+                            </div>                            <hr class="m-3">
+                        {% endfor %}
+                    </div>
+
+            </div>        {% else %}
+            <div class="container">
+                <h3>Нет результатов</h3>
+            </div>        {% endif %}
+     </section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "movieblog/base.html" %}
+{% block title %}Главная{% endblock %}
+{% load mptt_tags %}
+
+{% block content %}
+ <h1>{{ category.title }}</h1>
+    <p>{{ category.description }}</p>
+
+    <section class="films">
+        <div class="container">
+            <hr>
+            {% for film in films %}
+                <h2><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></h2>
+                <p>{{ film.short_body | safe }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+    </section>
+
+
+{% endblock %}
