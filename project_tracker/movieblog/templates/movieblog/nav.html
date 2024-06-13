@@ -6,6 +6,35 @@
         <button class="btn btn-primary search-btn" type="submit">Поиск</button>
     </form>
     </li>
+    {% if user.is_authenticated %}
+    <div class="dropdown">
+        <button class="btn btn-primary my-btn dropdown-toggle me-3" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+            {{ request.user }}
+        </button>
+        <ul class="dropdown-menu dd-color">
+            <li>  
+                <a class="dropdown-item dd-item-color" href="{% url 'user_app:user_profile' username=user.username %}">Профиль</a>  
+            </li>
+            <li>
+                <form method="post" action="{% url 'user_app:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item dd-item-color">Выйти</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+{% else %}
+    <li class="nav-item">
+        <a class="nav-link btn btn-primary my-btn me-3"
+           href="{% url 'user_app:login' %}">Войти</a>
+    </li>
+    <li class="nav-item">  
+        <a class="nav-link btn btn-primary my-btn me-3"  
+           href="{% url 'user_app:signup' %}">Регистрация</a>  
+    </li>
+{% endif %}
+
     <!-- Навигационное меню -->
     <a href="{% url 'movieblog:index' pk=18 slug='vse-filmy'%}">Главная</a><br>
     <a href="{% url 'movieblog:category_page' pk=13 slug='izbrannoe' %}">Избранное</a><br>
