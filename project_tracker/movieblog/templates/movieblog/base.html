@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
-<body>
+<body class="dark-theme">
     {% include 'movieblog/nav.html' %}
     <main>
         <div class="top">
@@ -26,7 +26,7 @@
                     <a href="{% url 'user_app:signup' %}" class="entrance__link link link-item"> регистрация </a>
                     <a href="{% url 'user_app:login' %}" class="entrance__link link link-item"> вход </a>
                 {% else %}
-                    <a href="{% url 'user_app:user_profile' username=user.username %} " class="entrance__link link link-item">{{user.username}}</a>
+                    <a href="{% url 'user_app:user_profile' username=user.username %} " class="entrance__link link link-item navbar__item">{{user.username}}</a>
                 {% endif %}
 
             </div>

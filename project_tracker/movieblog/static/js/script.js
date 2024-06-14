@@ -1,11 +1,21 @@
-// Получаем все элементы меню
 const navItems = document.querySelectorAll('.navbar__item');
-// Получаем текущий URL
 const currentUrl = window.location.href;
 
 navItems.forEach(item => {
-  // Если href элемента совпадает с текущим URL, добавляем класс active
   if (item.href === currentUrl) {
     item.classList.add('active');
   }
 });
+
+
+
+document.getElementById('toggleButton').addEventListener('click', function() {    
+    if (document.body.classList.contains('dark-theme')) {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+    } else {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+    }
+  });
+  

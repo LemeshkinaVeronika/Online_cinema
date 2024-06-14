@@ -8,6 +8,29 @@
     *
         font-size: 30px
 
+body.dark-theme
+    --color-background: #363C46
+    --color-background-button: #37C6F3
+    --form-color: white
+    --color-tab-button: #2890B1
+    --color-link: white 
+    --color-nav: #161A20
+    --color-person: white
+    --color-text: white
+    --color-stroke: white
+    --color-body: black
+body.light-theme
+    --color-background: #FFFFFF 
+    --color-background-button: #37C6F3
+    --form-color: #D9D9D9
+    --color-tab-button: #2890B1
+    --color-link: #666666 
+    --color-nav: #F8F8F8 
+    --color-person: #292929
+    --color-text: black
+    --color-stroke: #333333
+    --color-body: #CAD3E2
+    
 *
     margin: 0
     padding: 0
@@ -15,25 +38,30 @@
     flex-wrap: nowrap
     font-family: "Roboto"
 
+.ranks__mark
+    color: var(--color-text)
+
+
 body
     display: flex
+    color: var(--color-text)
     justify-content: space-between
-    background-color: #F8F8F8
-    height: 100%
+    background-color: var(--color-body)
+    min-height: 100vh
 
 nav
     width: 20%
-    min-height: 100vh
-    height: 100%
-    background-color: #FFFFFF
+    background-color: var(--color-nav)
     padding-top: 1.3rem
+    border-radius: 0.7rem
+    margin: 0.4rem 0.4rem 0.4rem 0.4rem
     .name-block
         display: flex
         justify-content: center
         margin-bottom: 2rem
         .name
             font-size: 1.5rem
-            color: #37C6F3
+            color: var(--color-background-button)
     .navbar
         padding-left: 2rem
         &__item
@@ -45,6 +73,12 @@ nav
 main
     width: 80%
     padding-top: 1rem
+    background-color: var(--color-background)
+    border-radius: 0.7rem
+    margin: 0.4rem 0.4rem 0.4rem 0rem
+
+svg
+    stroke: var(--color-stroke)
 
 .top
     display: flex
@@ -83,7 +117,7 @@ main
     width: 22rem
     padding-top: 0.3rem
     padding-bottom: 0.3rem
-    background-color: #D9D9D9
+    background-color: var(--form-color)
     padding-left: 1rem
     border: none
 
@@ -92,12 +126,12 @@ main
     padding: 0.5rem 0.7rem
     color: white
     text-decoration: none
-    background-color: #37C6F3
+    background-color: var(--color-background-button)
     display: inline-block
     &:hover
-        background-color: #2890B1
+        background-color: var(--color-tab-button)
     &:active
-        background-color: #37C6F3
+        background-color: var(--color-background-button)
 
 .content
     padding-left: 3rem
@@ -126,10 +160,11 @@ main
         width: 8rem
 
 .link-item
-    color: #666666
+    color: var(--color-link)
     text-decoration: none
     &:hover
-        color: #37C6F3
+        color: var(--color-background-button)
+        stroke: var(--color-background-button)
 
 .login-block
     display: flex
@@ -151,7 +186,7 @@ main
     width: 130%
     border-radius: 0.7rem
     border: none
-    background-color: #D9D9D9
+    background-color: var(--form-color)
     font-size: 0.7rem
     padding: 0.3rem 0.3rem 0.3rem 0.3rem
 
@@ -160,23 +195,23 @@ main
     width: 100%
     border-radius: 0.7rem
     border: none
-    background-color: #D9D9D9
+    background-color: var(--form-color)
     padding-left: 0.5rem
 
 .submit
     border-radius: 1.5rem
     padding: 0.4rem 1.8rem 0.4rem 1.8rem
-    background-color: #37C6F3
+    background-color: var(--color-background-button)
     border: none
     cursor: pointer
     margin-bottom: 0.3rem
     color: white
     &:hover
         box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
-        background-color: #2890B1
+        background-color: var(--color-tab-button)
         color: white
     &:active
-        background-color: #37C6F3
+        background-color: var(--color-background-button)
 
 .upload-block
     display: flex
@@ -214,14 +249,14 @@ main
     .tag-item
         margin-right: 0.5rem
         text-decoration: none
-        color: black
-        border: 1px solid black
+        color: var(--color-text)
+        border: 1px solid var(--color-text)
         border-radius: 1.5rem
         padding: 0.2rem 0.5rem 0.2rem 0.5rem
         &:hover
-            background-color: #37C6F3
+            background-color: var(--color-background-button)
             color: white
-            border-color: #37C6F3
+            border-color: var(--color-background-button)
         &:active
             box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
 
@@ -250,16 +285,16 @@ main
         box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
 
 .btn-success
-    background-color: #37C6F3
+    background-color: var(--color-background-button)
     margin-bottom: 1rem
     color: white
     &:hover
-        background-color: #2890B1
+        background-color: var(--color-tab-button)
 
 .btn-wishlist
     display: flex
     align-items: center
-    background-color: #D9D9D9
+    background-color: var(--form-color)
     svg
         margin-right: 0.4rem
 
@@ -271,7 +306,7 @@ main
     flex-direction: row
     align-items: center
     text-decoration: none
-    color: #292929
+    color: var(--color-person)
     .image-avatar
         object-fit: cover
         width: 2rem
@@ -307,13 +342,13 @@ main
         text-align: center
         border: 1px solid black
         border-radius: 50%
-        background-color: #fff
+        background-color: var(--color-nav)
         cursor: pointer
         margin-right: 0.3rem
         &:hover
-            background-color: #37C6F3
+            background-color: var(--color-background-button)
             color: white
-            border-color: #37C6F3
+            border-color: var(--color-background-button)
         &:active
             box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
 
@@ -322,4 +357,4 @@ main
 
 
 .active
-    color: #37C6F3
+    color: var(--color-background-button)
