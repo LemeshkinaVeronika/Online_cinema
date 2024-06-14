@@ -14,6 +14,7 @@ def index(request, pk, slug):
     context = {
         'category': category,
         'films': films,
+        'user' : request.user,
     }
     return render(request,
                   'movieblog/index.html',
@@ -26,6 +27,7 @@ def category_page(request, pk, slug):
     context = {
         'category': category,
         'films': films,
+        'user' : request.user,
     }
 
     return render(request,
@@ -38,6 +40,7 @@ def film_page(request, pk, slug):
 
     context = {
         'film': film,
+        'user' : request.user,
     }
 
     return render(request,
@@ -51,6 +54,7 @@ def category_page(request, pk, slug):
     context = {
         'category': category,
         'films': films,
+        'user' : request.user,
     }
 
     return render(request,
@@ -66,7 +70,8 @@ def tag_page(request, tag_name):
 
     context = {
         'tag_name': tag_name,
-        'films': films
+        'films': films,
+        'user' : request.user,
     }
 
     return render(request,
@@ -90,7 +95,8 @@ class SearchPageView(TemplateView):
             results = paginator.get_page(page_number)
 
             context = {"query": query,
-                       "results": results}
+                       "results": results,
+                       'user' : request.user,}
 
             return render(request,
                           self.template_name,

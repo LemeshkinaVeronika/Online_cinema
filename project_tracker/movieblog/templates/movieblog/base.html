@@ -22,8 +22,13 @@
                 </form>
             </div>
             <div class="entrance">
-                <a href="{% url 'user_app:signup' %}" class="entrance__link link link-item"> регистрация </a>
-                <a href="{% url 'user_app:login' %}" class="entrance__link link link-item"> вход </a>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'user_app:signup' %}" class="entrance__link link link-item"> регистрация </a>
+                    <a href="{% url 'user_app:login' %}" class="entrance__link link link-item"> вход </a>
+                {% else %}
+                    <a href="{% url 'user_app:user_profile' username=user.username %} " class="entrance__link link link-item">{{user.username}}</a>
+                {% endif %}
+
             </div>
         </div>
 
