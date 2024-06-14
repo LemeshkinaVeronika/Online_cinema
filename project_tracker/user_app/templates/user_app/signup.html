@@ -1,18 +1,29 @@
-<form method="post">  
-    {% csrf_token %}  
-    {% if form.non_field_errors %}  
-        <div class="alert alert-danger">  
-            {{ form.non_field_errors }}  
-        </div>  
-    {% endif %}  
-    {% for field in form %}  
-        <p class="form-label">{{ field.label }}</p>  
-        <p>{{ field }}</p>  
-        {% if field.errors %}  
-            <ul class="alert alert-danger">  
-                {{ field.errors }}  
-            </ul>  
-        {% endif %}  
-    {% endfor %}  
-    <button type="submit" class="btn btn-outline-success">Зарегистрироваться</button>  
-</form>
+
+{% extends "movieblog/base.html" %}
+{% block content %}
+    <div class="content">
+        <div class="login-block">
+            <span class="name entrance-title">Регистрация</span>
+            <form action="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}  
+                    <div class="alert alert-danger">  
+                        {{ form.non_field_errors }}  
+                    </div>  
+                {% endif %}  
+                {% for field in form %}
+                    <div class="form-group">
+                        <p class="form-label">{{ field.label }}</p>  
+                        <input type="text" id="{{ field.id }}" class="form-control" name="{{ field.name }}" value="">
+                        {% if field.errors %}  
+                            <ul class="alert alert-danger">  
+                                {{ field.errors }}  
+                            </ul>  
+                        {% endif %}
+                        </div>
+                {% endfor %} 
+                <button type="submit" class="btn btn-outline-success link-border">Зарегистрироваться</button>  
+            </form>
+        </div>
+    </div>
+{% endblock content %}

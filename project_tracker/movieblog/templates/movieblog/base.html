@@ -22,13 +22,14 @@
                 </form>
             </div>
             <div class="entrance">
-                <a href="movieblog/signup.html" class="entrance__link link link-item"> sign up </a>
-                <a href="movieblog/login.html" class="entrance__link link link-item"> log in </a>
+                <a href="{% url 'user_app:signup' %}" class="entrance__link link link-item"> регистрация </a>
+                <a href="{% url 'user_app:login' %}" class="entrance__link link link-item"> вход </a>
             </div>
         </div>
 
     {% block content %}{% endblock content %}
     </main>
 
+    <script src={% static "js/script.js" %} ></script>
 </body>
 </html>

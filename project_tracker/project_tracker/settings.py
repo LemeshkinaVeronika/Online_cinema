@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'taggit',
     'django.contrib.postgres',
-    'analytical',
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'user_app.apps.UserAppConfig', 
