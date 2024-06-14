@@ -1,0 +1,315 @@
+@media screen and (min-width: 600px)
+    *
+        font-size: 12px
+@media screen and (min-width: 900px)
+    *
+        font-size: 22px
+@media screen and (min-width: 1441px)
+    *
+        font-size: 30px
+
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    flex-wrap: nowrap
+    font-family: "Roboto"
+
+body
+    display: flex
+    justify-content: space-between
+    background-color: #F8F8F8
+    height: 100%
+
+nav
+    width: 20%
+    min-height: 100%
+    background-color: #FFFFFF
+    padding-top: 1.3rem
+    .name-block
+        display: flex
+        justify-content: center
+        margin-bottom: 2rem
+        .name
+            font-size: 1.5rem
+            color: #37C6F3
+    .navbar
+        padding-left: 2rem
+        &__item
+            display: flex
+            align-items: center
+            margin-bottom: 1rem
+            svg
+                margin-right: 0.3rem
+main
+    width: 80%
+    padding-top: 1rem
+
+.top
+    display: flex
+    justify-content: space-between
+    margin-bottom: 2rem
+    .search
+        padding-left: 3rem
+        .form-search
+            width: 25rem
+            height: 100%
+            padding-top: 0.3rem
+            padding-bottom: 0.3rem
+            padding-left: 1rem
+
+    .entrance
+        margin-right: 1rem
+        display: flex
+        align-content: center
+        &__link
+            margin-right: 1rem
+            text-decoration: underline
+
+.search-link
+    &:active
+        box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+    span
+        display: flex
+        align-items: center
+        font-size: 0.8rem
+
+
+.round-border
+    border-radius: 0.7rem
+
+.search-item
+    width: 22rem
+    padding-top: 0.3rem
+    padding-bottom: 0.3rem
+    background-color: #D9D9D9
+    padding-left: 1rem
+    border: none
+
+.link-border
+    border-radius: 1.5rem
+    padding: 0.5rem 0.7rem
+    color: white
+    text-decoration: none
+    background-color: #37C6F3
+    display: inline-block
+    &:hover
+        background-color: #2890B1
+    &:active
+        background-color: #37C6F3
+
+.content
+    padding-left: 3rem
+    margin-right: 1rem
+
+.title
+    margin-bottom: 1.5rem
+
+.movies
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
+    grid-gap: 1.5rem
+    white-space: nowrap
+    .movie-image
+        border-radius: 0.7rem
+        &:hover
+            height: 12.1rem
+            width: 8.1rem
+
+.movie-item
+    height: 13rem
+    width: 9rem
+    .movie-image
+        height: 12rem
+        width: 8rem
+
+.link-item
+    color: #666666
+    text-decoration: none
+    &:hover
+        color: #37C6F3
+
+.login-block
+    display: flex
+    align-items: center
+    flex-direction: column
+
+.entrance-title
+    display: flex
+    justify-content: center
+    margin-top: 1rem
+    margin-bottom: 2rem
+    font-size: 2rem
+
+.form-group
+    margin-bottom: 1rem
+    width: 20rem
+.form-text
+    height: 7rem
+    width: 130%
+    border-radius: 0.7rem
+    border: none
+    background-color: #D9D9D9
+    font-size: 0.7rem
+    padding: 0.3rem 0.3rem 0.3rem 0.3rem
+
+.form-control
+    height: 2rem
+    width: 100%
+    border-radius: 0.7rem
+    border: none
+    background-color: #D9D9D9
+
+.submit
+    border-radius: 1.5rem
+    padding: 0.4rem 1.8rem 0.4rem 1.8rem
+    background-color: #37C6F3
+    border: none
+    cursor: pointer
+    margin-bottom: 0.3rem
+    color: white
+    &:hover
+        box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+        background-color: #2890B1
+        color: white
+    &:active
+        background-color: #37C6F3
+
+.upload-block
+    display: flex
+    align-items: center
+    .input-upload
+        display: none
+    label
+        display: inline-block
+        border: 1px solid black
+        padding: 0.5rem 2rem
+        font-size: 1rem
+        user-select: none
+        border-radius: 0.3rem
+        cursor: pointer
+        
+.small-text
+    font-size: 0.7rem
+    color: grey
+
+.movie-content
+    margin-left: 10%
+    margin-right: 20%
+
+.movie-block
+    margin-bottom: 1rem
+    &__top
+        display: flex
+        justify-content: space-between
+    &__main
+        display: flex
+        flex-direction: row
+.movie-tags
+    display: flex
+    flex-direction: row        
+    .tag-item
+        margin-right: 0.5rem
+        text-decoration: none
+        color: black
+        border: 1px solid black
+        border-radius: 1.5rem
+        padding: 0.2rem 0.5rem 0.2rem 0.5rem
+        &:hover
+            background-color: #37C6F3
+            color: white
+            border-color: #37C6F3
+        &:active
+            box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+
+
+.movie-right
+    display: flex
+    flex-direction: column
+    // align-items: flex-end
+    justify-content: space-between
+    padding-bottom: 1rem
+
+.movie-left
+    margin-right: 1rem
+
+.description
+    font-size: 0.7rem
+
+.btn
+    border-radius: 1.5rem
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem
+    border: none
+    font-size: 0.7rem
+    cursor: pointer
+        // color: white
+    &:active
+        box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+
+.btn-success
+    background-color: #37C6F3
+    margin-bottom: 1rem
+    color: white
+    &:hover
+        background-color: #2890B1
+
+.btn-wishlist
+    display: flex
+    align-items: center
+    background-color: #D9D9D9
+    svg
+        margin-right: 0.4rem
+
+.round-image
+    border-radius: 50%
+
+.person
+    display: flex
+    flex-direction: row
+    align-items: center
+    text-decoration: none
+    color: #292929
+    .image-avatar
+        object-fit: cover
+        width: 2rem
+        height: 2rem
+        margin-right: 0.5rem
+
+
+.review-title
+    margin-bottom: 0.5rem
+
+.review-top
+    margin-bottom: 0.5rem
+
+.review-content
+    margin-bottom: 0.8rem
+
+.review-item
+    margin-bottom: 1.5rem
+
+.movie-title
+    font-size: 1.2rem
+    margin-bottom: 1.5rem
+
+.ranks
+    display: flex
+    flex-direction: row
+    align-items: center
+    &__mark
+        display: inline-block
+        width: 2rem
+        height: 2rem
+        line-height: 2rem
+        text-align: center
+        border: 1px solid black
+        border-radius: 50%
+        background-color: #fff
+        cursor: pointer
+        margin-right: 0.3rem
+        &:hover
+            background-color: #37C6F3
+            color: white
+            border-color: #37C6F3
+        &:active
+            box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)

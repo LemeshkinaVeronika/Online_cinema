@@ -1,22 +1,17 @@
-
-{% extends "movieblog/base.html" %}
-
-{% load mptt_tags %}
-{% block title %}{{ category.title }}{% endblock %}
+{% extends "movieblog/base.html" %} 
 
 {% block content %}
-    <h1>{{ category.title }}</h1>
-    <p>{{ category.description }}</p>
-
-    <section class="films">
-        <div class="container">
-            <hr>
-            {% for film in films %}
-                <h2><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></h2>
-                <p>{{ film.short_body | safe }}</p>
-                <hr>
-            {% endfor %}
+        <div class="content">
+            <div class="title">
+                <h1>{{ category.title }}</h1>
+            </div>
+            <div class="movies">
+                {% for film in films %}
+                    <a href="{{ film.get_absolute_url }}" class="movie-item">
+                        <img src="{{ film.image.url }}" alt="" class="movie-image">
+                    </a>
+                {% endfor %}
+            </div>
         </div>
-    </section>
-{% endblock %}
 
+{% endblock content %}

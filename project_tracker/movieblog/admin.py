@@ -19,7 +19,7 @@ class FilmFilesAdmin(admin.ModelAdmin):
 
 @admin.register(models.CategoryModel)
 class CategoryAdmin(DraggableMPTTAdmin):
-    list_display = ('tree_actions', 'indented_title', 'parent',)
+    list_display = ('id', 'tree_actions', 'indented_title', 'parent',)
     list_display_links = ('indented_title',)
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title', ]

@@ -1,28 +1,17 @@
-{% extends "movieblog/base.html" %}
-{% block title %}{{ tag_name | title }}{% endblock %}
+{% extends "movieblog/base.html" %} 
+
 {% block content %}
-        <div class="container">
-            <h1>{{ tag_name | title }}</h1>
-            <p>На этой странице представлены фильмы, отсортированные по имени тега {{ tag_name }}.</p>
-            <hr>
-        <div class="col-lg-9 col-sm-12 cat-block">
-                    {% for film in films %}
-                        <div class="row">
-                            <div class="col-lg-8 col-sm-12">
-                                <h4><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></h4>
-                                <p class="lead"><a href="{{ film.category.get_absolute_url }}">{{ film.category }}</a>
-                                    | {{ film.author }} | {{ film.publish | date:"d F Y" }}</p>
-                                {% for tag in film.tags.all %}
-                                    <a href="{% url 'movieblog:tag_page' tag.slug %}"><span
-                                            class="badge bg-success">{{ tag.name }}</span></a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <hr class="m-3">
-                    {% endfor %}
-                </div>
-             <div class="col-12">
-    {% include "movieblog/pagination.html" with page_obj=posts %}
-</div>
+        <div class="content">
+            <div class="title">
+                <h1>{{ tag_name | title }}</h1>
+            </div>
+            <div class="movies">
+                {% for film in films %}
+                    <a href="{{ film.get_absolute_url }}" class="movie-item">
+                        <img src="{{ film.image.url }}" alt="" class="movie-image">
+                    </a>
+                {% endfor %}
+            </div>
         </div>
-{% endblock %}
+
+{% endblock content %}

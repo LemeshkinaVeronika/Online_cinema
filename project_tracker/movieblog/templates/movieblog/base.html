@@ -1,35 +1,34 @@
+{% load static %}
 
 <!DOCTYPE html>
-{% load static %}
-{% load analytical %}
-<html lang="ru" data-bs-theme="dark" class="h-100">
+<html lang="en">
 <head>
-    {% analytical_head_top %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
-    <title>MovieBlog</title>
-    <title>{% block title %}{% endblock %}</title>
-    {% analytical_head_bottom %}
+    <link rel="stylesheet" type="text/css" href={% static "css/styles.css" %} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Document</title>
 </head>
-<body class="d-flex flex-column h-100">
-    {% analytical_body_top %}
-    <header>
-        <!-- Общий заголовок для всех страниц -->
-      <h1>MovieBlog</h1>
-    </header>
+<body>
     {% include 'movieblog/nav.html' %}
-   
     <main>
-        {% block content %}
-        <!-- Основное содержимое страницы -->
-        {% endblock %}
+        <div class="top">
+            <div class="search">
+                <form method="GET" action="{% url 'movieblog:search_page' %}">
+                    <input type="text" class="round-border search-item">
+                    <a href="#" class="search-link link-border"> <span>Search!</span> </a>
+                </form>
+            </div>
+            <div class="entrance">
+                <a href="movieblog/signup.html" class="entrance__link link link-item"> sign up </a>
+                <a href="movieblog/login.html" class="entrance__link link link-item"> log in </a>
+            </div>
+        </div>
+
+    {% block content %}{% endblock content %}
     </main>
 
-    <footer>
-        <!-- Общий футер для всех страниц -->
-    </footer>
-    {% analytical_body_bottom %}
 </body>
-<script src="{% static "js/bootstrap.bundle.js" %}"></script>
 </html>
