@@ -26,6 +26,7 @@
                     <a href="{% url 'user_app:signup' %}" class="entrance__link link link-item"> регистрация </a>
                     <a href="{% url 'user_app:login' %}" class="entrance__link link link-item"> вход </a>
                 {% else %}
+                    <a href="{% url 'user_app:logout' %}" class="entrance__link link link-item"> выход </a>
                     <a href="{% url 'user_app:user_profile' username=user.username %} " class="entrance__link link link-item navbar__item">{{user.username}}</a>
                 {% endif %}
 

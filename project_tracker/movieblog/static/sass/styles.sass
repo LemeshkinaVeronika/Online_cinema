@@ -45,16 +45,21 @@ body.light-theme
 body
     display: flex
     color: var(--color-text)
-    justify-content: space-between
+    justify-content: flex-start
     background-color: var(--color-body)
     min-height: 100vh
+    margin: 0
+    width: 100%
 
 nav
+    position: fixed
     width: 20%
+    height: 98vh
+    overflow: hidden
     background-color: var(--color-nav)
     padding-top: 1.3rem
     border-radius: 0.7rem
-    margin: 0.4rem 0.4rem 0.4rem 0.4rem
+    margin: 0.4rem
     .name-block
         display: flex
         justify-content: center
@@ -75,7 +80,7 @@ main
     padding-top: 1rem
     background-color: var(--color-background)
     border-radius: 0.7rem
-    margin: 0.4rem 0.4rem 0.4rem 0rem
+    margin: 0.4rem 0.4rem 0.4rem 21%
 
 svg
     stroke: var(--color-stroke)
@@ -358,3 +363,36 @@ svg
 
 .active
     color: var(--color-background-button)
+
+.bottom-part
+    height: 100%
+    width: 100%
+    display: flex
+    flex-direction: row
+    align-items: center
+.switcher
+    background-color: white
+    width: 4rem
+    height: 2rem
+    border-radius: 200px
+    cursor: pointer
+    transition: 0.2s
+    &::before
+        position: absolute
+        content: ''
+        background-color: black
+        width: 1.8rem
+        height: 1.8rem
+        border-radius: 200px
+        margin: 0.1rem
+
+input:checked + .switcher
+    background-color: black
+
+input:checked + .switcher::before
+    margin-left: 1.95rem
+    background-color: #fff
+    // transform: translateX(20px)
+
+input.theme-switcher
+    display: none
