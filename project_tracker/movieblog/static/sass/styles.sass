@@ -51,10 +51,11 @@ body
     margin: 0
     width: 100%
 
-nav
+
+.top-part
     position: fixed
     width: 20%
-    height: 98vh
+    height: 97.5vh
     overflow: hidden
     background-color: var(--color-nav)
     padding-top: 1.3rem
@@ -279,6 +280,8 @@ svg
 .description
     font-size: 0.7rem
 
+
+
 .btn
     border-radius: 1.5rem
     padding: 0.3rem 0.5rem 0.3rem 0.5rem
@@ -300,6 +303,11 @@ svg
     display: flex
     align-items: center
     background-color: var(--form-color)
+    &:hover
+        font-size: 0.7rem
+        border: 1px solid black
+    &:active
+        background-color: #666666 
     svg
         margin-right: 0.4rem
 
@@ -356,6 +364,7 @@ svg
             border-color: var(--color-background-button)
         &:active
             box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+            background-color: var(--color-tab-button)
 
 .micro-text
     font-size: 0.5rem
@@ -368,31 +377,36 @@ svg
     height: 100%
     width: 100%
     display: flex
-    flex-direction: row
+    justify-content: center
     align-items: center
 .switcher
     background-color: white
-    width: 4rem
-    height: 2rem
+    width: 3rem
+    height: 1.5rem
     border-radius: 200px
     cursor: pointer
     transition: 0.2s
     &::before
         position: absolute
         content: ''
-        background-color: black
-        width: 1.8rem
-        height: 1.8rem
+        background-color: #37C6F3
+        width: 1.3rem
+        height: 1.3rem
         border-radius: 200px
         margin: 0.1rem
 
 input:checked + .switcher
-    background-color: black
+    background-color: #37C6F3
 
 input:checked + .switcher::before
-    margin-left: 1.95rem
+    margin-left: 1.5rem
     background-color: #fff
     // transform: translateX(20px)
 
 input.theme-switcher
     display: none
+
+.theme-text
+    margin-bottom: 0.3rem
+    margin-right: 0.4rem
+    color: var(--color-link)

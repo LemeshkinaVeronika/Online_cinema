@@ -1,10 +1,10 @@
 <nav>
-    <div class="name-block">
-        <a href={% url 'movieblog:index' pk=18 slug='vse-filmy'%} class="name link-item">
-            MovieBlog
-        </a>
-    </div>
     <div class="top-part">
+        <div class="name-block">
+            <a href={% url 'movieblog:index' pk=18 slug='vse-filmy'%} class="name link-item">
+                MovieBlog
+            </a>
+        </div>
         <div class="navbar">
             <a href="{% url 'movieblog:index' pk=18 slug='vse-filmy'%}" class="navbar__item link-item">
                 <svg width="30px" height="30px" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,10 +47,11 @@
                 </svg> {% endcomment %} 
                 <span>Избранное</span>
             </a>
-            <div class="bottom-part">
-                <input type="checkbox" id="theme-switcher" class="theme-switcher">
-                <label for="theme-switcher" class="switcher"></label>
-            </div>
+        </div>
+        <div class="bottom-part">
+            <span class="theme-text">Изменить тему</span>
+            <input type="checkbox" id="theme-switcher" class="theme-switcher">
+            <label for="theme-switcher" class="switcher"></label>
         </div>
     </div>
 </nav>
