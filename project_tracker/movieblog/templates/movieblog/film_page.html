@@ -12,6 +12,7 @@
 {% for tag in film.tags.all %}
     <a href="{% url 'movieblog:tag_page' tag.slug %}"><span class="badge bg-success">{{ tag.name }}</span></a>
 {% endfor %}
+{% include "movieblog/comments.html" with film=film comments=comments %}
 {% endblock %}
 
 

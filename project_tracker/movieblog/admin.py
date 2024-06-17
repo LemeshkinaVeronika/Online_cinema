@@ -6,7 +6,7 @@ from mptt.admin import DraggableMPTTAdmin
 from django.contrib import admin
 from . import models
 from django.utils.html import format_html
-
+from django.utils.safestring import mark_safe
 
 @admin.register(models.FilmFilesModel)
 class FilmFilesAdmin(admin.ModelAdmin):
@@ -48,6 +48,18 @@ class FilmAdmin(admin.ModelAdmin):
             return '(No image found)'
 
     image_preview.short_description = 'Превью'
+    
+@admin.register(models.CommentModel)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("user", "film_link", "created_at", "content")
+    list_filter = ("user", "film")
+
+    def film_link(self, obj):
+        return mark_safe(
+            f'<a href="{obj.film.get_absolute_url()}">{obj.film.title}</a>'
+        )
+
+    film_link.short_description = "Фильм"
 
 # @admin.register(CommentModel)
 # class CommentAdmin(admin.ModelAdmin):

@@ -1,5 +1,5 @@
 from django import forms
-
+from .models import CommentModel
 
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=100,
@@ -14,3 +14,18 @@ class SearchForm(forms.Form):
         query = self.cleaned_data['query']
         cleaned_query = " ".join(query.split())
         return cleaned_query
+    
+class CommentForm(forms.ModelForm):  
+    content = forms.CharField(  
+        widget=forms.Textarea(  
+            attrs={  
+                "class": "form-control",  
+                "placeholder": "Введите текст комментария",  
+                "rows": 5  
+            }  
+        ),  
+    )  
+
+    class Meta:  
+        model = CommentModel  
+        fields = ("content",)
