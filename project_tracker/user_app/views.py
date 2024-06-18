@@ -33,24 +33,18 @@ class CustomRegistrationView(CreateView):
     def form_valid(self, form):  
         user = form.save()  
         return super().form_valid(form)
+    
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from user_app.forms import CustomPasswordResetForm, CustomSetPasswordForm
 
 
+class CustomPasswordResetView(PasswordResetView):  
+    template_name = 'user_app/password_reset.html'  
+    email_template_name = 'user_app/password_reset_email.html'  
+    form_class = CustomPasswordResetForm  
+    success_url = reverse_lazy('user_app:password_reset_done')  
 
-class CustomPasswordResetView(PasswordResetView):
-    template_name = 'user_app/password_reset.html'
-    email_template_name = 'user_app/password_reset_email.html'
-    form_class = CustomPasswordResetForm
-    success_url = reverse_lazy('user_app:password_reset_done')
 
-    def form_valid(self, form):
-        email = form.cleaned_data.get('email')
-        if not email:
-            form.add_error('email', 'Email address is required.')
-            return self.form_invalid(form)
-        return super().form_valid(form)
-   
 class CustomUserPasswordResetConfirmView(PasswordResetConfirmView):  
     template_name = 'user_app/password_reset_confirm.html'  
     success_url = reverse_lazy('user_app:password_reset_complete')  

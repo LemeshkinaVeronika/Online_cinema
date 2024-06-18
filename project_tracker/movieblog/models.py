@@ -158,26 +158,62 @@ class FilmModel(models.Model):
                              blank=True,
                              verbose_name="Файл",
                              related_name="film")
+# class FilmModel(models.Model):
+#     """Модель поста"""
 
-
-
-
-# class CommentModel(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, verbose_name="Пользователь"
+#     title = models.CharField(max_length=200,
+#                              verbose_name="Название")
+#     slug = models.SlugField(verbose_name="Альт. название")
+#     image = models.ImageField(upload_to='film/%Y/%m/%d',
+#                               default='default/not_found.png',
+#                               verbose_name='Постер')
+#     director = models.CharField(max_length=200,
+#                                 verbose_name="Режиссер")
+#     category = TreeForeignKey('CategoryModel',
+#                               on_delete=models.PROTECT,
+#                               related_name='film',
+#                               verbose_name='Категория')
+#     RATING_CHOICES = [
+#         ('0', '0'),
+#         ('1', '1'),
+#         ('2', '2'),
+#         ('3', '3'),
+#         ('4', '4'),
+#         ('5', '5'),
+#     ]
+#     rating = models.CharField(
+#         max_length=100,
+#         choices=RATING_CHOICES,
+#         default='0',
+#         verbose_name='Рейтинг',
 #     )
-#     film = models.ForeignKey(
-#         FilmFilesModel,
-#         on_delete=models.CASCADE,
-#         verbose_name="Фильм",
-#         related_name="comments",
-#     )
-#     comment = models.TextField(verbose_name="Комментарий")
-#     created_at = models.DateTimeField(auto_now_add=True)
-#
-#     class Meta:
-#         verbose_name = "Комментарий"
-#         verbose_name_plural = "Комментарии"
-#
-#     def __str__(self):
-#         return f"Комментарий от {self.user} к посту {self.film}"
+#     full_body = CKEditor5Field(verbose_name='Основная информация')
+#     publish = models.DateTimeField(default=timezone.now,
+#                                    verbose_name="Опубликовано")
+#     created = models.DateTimeField(auto_now_add=True,
+#                                    verbose_name="Создано")
+#     views = models.IntegerField(default=0, verbose_name="Просмотры") 
+#     updated = models.DateTimeField(auto_now=True, verbose_name="Обновлено")
+#     objects = FilmManager()
+    
+                                   
+class CommentModel(MPTTModel):
+    film = models.ForeignKey(FilmModel, on_delete=models.CASCADE, related_name='comments', verbose_name="Фильм")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name="Пользователь")
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', db_index=True, verbose_name='Родительский комментарий')
+    content = models.TextField(verbose_name="Комментарий")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создано")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновлено")
+    
+
+    objects = TreeManager()
+
+    class MPTTMeta:
+        order_insertion_by = ['created_at']
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
+
+    def str(self):
+        return f'Комментарий от {self.user.username} на {self.film.title}'

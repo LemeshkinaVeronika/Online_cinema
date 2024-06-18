@@ -64,23 +64,21 @@ class RegistrationForm(UserCreationForm):
         model = User  
         fields = ['username', 'email', 'password1', 'password2', ]
 
+from django.contrib.auth import password_validation  
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 
 
-class CustomPasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(
-        label="Email",
-        max_length=254,
-        widget=forms.EmailInput(
-            attrs={'class': 'form-control', 'placeholder': 'Введите Email', "autocomplete": "email"}
-        )
-    )
+class CustomPasswordResetForm(PasswordResetForm):  
+    email = forms.EmailField(  
+        label="Email",  
+        max_length=254,  
+        widget=forms.EmailInput(  
+            attrs={'class': 'form-control',  
+                   'placeholder': 'Введите Email',  
+                   "autocomplete": "email"}  
+        )  
+    )  
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if not email:
-            raise forms.ValidationError('Email address is required.')
-        return email
-   
 
 class CustomSetPasswordForm(SetPasswordForm):  
     error_messages = {  
@@ -105,6 +103,7 @@ class CustomSetPasswordForm(SetPasswordForm):
                    "autocomplete": "new-password"}  
         ),  
     )
+    
 class UserInfoForm(forms.ModelForm):  
     username = forms.CharField(  
         max_length=150,  
