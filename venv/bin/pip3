@@ -1,4 +1,4 @@
-#!/home/veronika/Документы/GitHub/Online_cinema/venv/bin/python
+#!/Users/konstantingalanin/DigitalLectern3/Online_cinema/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
