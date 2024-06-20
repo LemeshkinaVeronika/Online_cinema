@@ -2,14 +2,16 @@
 {% block title %}Редактирование комментария{% endblock %}
 
 {% block content %}
-    <div class="form-section container mt-3">
-        <h2>Редактирование комментария</h2>
+    <div class="movie-content">
+        <div class="title">Редактирование комментария</div>
         <form method="post">
             {% csrf_token %}
+            <div class="form-group">
             {{ form.as_p }}
-            <button class="btn btn-primary" type="submit">Обновить</button>
+            </div>
+            <button class="btn btn-success" type="submit">Обновить</button>
             <a href="{% url 'movieblog:film_page' pk=object.film.pk slug=object.film.slug  %}"
-               class="btn btn-secondary">Отмена</a>
+            class="link-comment">Отмена</a>
         </form>
     </div>
 {% endblock %}

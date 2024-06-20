@@ -1,29 +1,38 @@
-<div class="row">
-    <h2 class="mt-3 mb-3">Добавить комментарий:</h2>
-    {% if user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data" action="{% url 'movieblog:add_comment' pk=film.pk %}">
-            {% csrf_token %}
-            {{ comment_form.content }}
-            <button class="btn btn-outline-warning mt-3" type="submit">Отправить</button>
-        </form>
-    {% else %}
-        <p><a href="{% url 'user_app:login' %}">Войдите</a> чтобы добавить комментарий.</p>
-    {% endif %}
-</div>
-
-<div class="row">
-    <h2 class="mt-3 mb-3">Комментарии пользователей:</h2>
-    {% if comments %}
-        {% for comment in comments %}
-            <p><a href="{% url 'user_app:user_profile' username=comment.user.username %}">{{ comment.user }}</a>
-                | {{ comment.created_at }} | {% if comment.user == user or user.is_superuser %}
-                    <a href="{% url 'movieblog:edit_comment' pk=comment.pk %}">Редактировать</a> |
-                    <a href="{% url 'movieblog:delete_comment' pk=comment.pk %}">Удалить</a>
-                {% endif %}</p>
-            <p>{{ comment.content }}</p>
+{% if comments %}
+    {% for comment in comments %}
+        <div class="review-item">
+            <div class="review-top">
+                <div class="person">
+                    <img src="#" alt="" class="round-image image-avatar">
+                    <a href="{% url 'user_app:user_profile' username=comment.user.username %}" class="link link-item">{{ comment.user }}</a>
+                </div>
+            </div>
+            <div class="review-content">
+                <span class="description"> 
+                    {{ comment.content }} 
+                    <br>
+                    | {{ comment.created_at }} | {% if comment.user == user or user.is_superuser %}
+                    <a href="{% url 'movieblog:edit_comment' pk=comment.pk %}" class="link-comment">Редактировать</a> |
+                    <a href="{% url 'movieblog:delete_comment' pk=comment.pk %}" class="link-comment">Удалить</a>
+                    {% endif %}</p>
+                </span>
+            </div>
             <hr>
-        {% endfor %}
-    {% else %}
-        <p>Нет комментариев</p>
-    {% endif %}
-</div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Нет отзывов</p>
+{% endif %}
+
+<span class="movie-title">Добавить комментарий:</span>
+{% if user.is_authenticated %}
+    <form method="post" enctype="multipart/form-data" action="{% url 'movieblog:add_comment' pk=film.pk %}">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ comment_form.content }}
+        </div>
+        <button class="btn btn-success" type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'user_app:login' %}" class="entrance__link link link-item">Войдите</a> чтобы добавить комментарий.</p>
+{% endif %}

@@ -99,13 +99,17 @@ svg
             padding-bottom: 0.3rem
             padding-left: 1rem
 
-    .entrance
+.entrance
+    margin-right: 1rem
+    display: flex
+    align-content: center
+    &__link
         margin-right: 1rem
-        display: flex
-        align-content: center
-        &__link
-            margin-right: 1rem
-            text-decoration: underline
+        text-decoration: underline
+a.entrance__link
+    text-decoration: underline
+span.entrance__link
+    text-decoration: underline
 
 .search-link
     &:active
@@ -307,9 +311,12 @@ svg
         font-size: 0.7rem
         border: 1px solid black
     &:active
-        background-color: #666666 
+        background-color: var(--color-background-button) 
     svg
         margin-right: 0.4rem
+
+.active-wishlist
+    background-color: var(--color-background-button) 
 
 .round-image
     border-radius: 50%
@@ -366,6 +373,11 @@ svg
             box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
             background-color: var(--color-tab-button)
 
+.ranks__mark.active-mark
+    color: white
+    background-color: var(--color-background-button)
+    border-color: var(--color-background-button)
+
 .micro-text
     font-size: 0.5rem
 
@@ -406,7 +418,27 @@ input:checked + .switcher::before
 input.theme-switcher
     display: none
 
+
 .theme-text
     margin-bottom: 0.3rem
     margin-right: 0.4rem
     color: var(--color-link)
+
+.btn-logout
+    background: none
+    border: none
+    padding: 0
+
+.link-comment
+    font-size: 0.7rem
+    color: var(--color-link)
+
+
+form
+    .btn-success
+        margin-right: 0.5rem
+
+.settings
+    display: flex
+    flex-direction: column
+    line-height: 2rem

@@ -26,7 +26,12 @@
                     <a href="{% url 'user_app:signup' %}" class="entrance__link link link-item"> регистрация </a>
                     <a href="{% url 'user_app:login' %}" class="entrance__link link link-item"> вход </a>
                 {% else %}
-                    <a href="{% url 'user_app:logout' %}" class="entrance__link link link-item"> выход </a>
+                    <form id="logout-form" action="{% url 'user_app:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-logout">
+                            <span class="entrance__link link link-item">выход</span>
+                        </button>
+                    </form>
                     <a href="{% url 'user_app:user_profile' username=user.username %} " class="entrance__link link link-item navbar__item">{{user.username}}</a>
                 {% endif %}
 

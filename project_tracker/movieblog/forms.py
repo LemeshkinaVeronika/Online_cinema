@@ -19,7 +19,7 @@ class CommentForm(forms.ModelForm):
     content = forms.CharField(  
         widget=forms.Textarea(  
             attrs={  
-                "class": "form-control",  
+                "class": "form-text",  
                 "placeholder": "Введите текст комментария",  
                 "rows": 5  
             }  

@@ -8,7 +8,7 @@
                         {{ film.title }}
                     </div>
                     <div class="wishlist-button">
-                        <button class="btn btn-wishlist">
+                        <button class="btn btn-wishlist" id="wishlist">
                             <svg width="1rem" height="1rem" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 19.2674V7.84496C19 5.64147 17.4253 3.74489 15.2391 3.31522C13.1006 2.89493 10.8994 2.89493 8.76089 3.31522C6.57467 3.74489 5 5.64147 5 7.84496V19.2674C5 20.6038 6.46752 21.4355 7.63416 20.7604L10.8211 18.9159C11.5492 18.4945 12.4508 18.4945 13.1789 18.9159L16.3658 20.7604C17.5325 21.4355 19 20.6038 19 19.2674Z" stroke="#363853" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -39,20 +39,19 @@
                             <span class="rating">Rating 3.4/5</span>
                         </div>
                         <div class="ranks">
-
-                            <button class="ranks__mark">
+                            <button class="ranks__mark" id="toggle-mark">
                                 <span>1</span>
                             </button>
-                            <button class="ranks__mark">
+                            <button class="ranks__mark" id="toggle-mark">
                                 <span>2</span>
                             </button>
-                            <button class="ranks__mark">
+                            <button class="ranks__mark" id="toggle-mark">
                                 <span>3</span>
                             </button>
-                            <button class="ranks__mark">
+                            <button class="ranks__mark" id="toggle-mark">
                                 <span>4</span>
                             </button>
-                            <button class="ranks__mark">
+                            <button class="ranks__mark" id="toggle-mark">
                                 <span>5</span>
                             </button>
                         </div>
@@ -60,56 +59,10 @@
                 </div>
             </div>
             <div class="reviews">
-            <div class="movie-title">
-                Reviews:
-            </div>
-            <div class="review-item">
-                <div class="review-top">
-                    <div class="person">
-                        <img src="../media/darth.jpg" alt="" class="round-image image-avatar">
-                        <span>Name</span>
-                    </div>
+                <div class="movie-title">
+                    Отзывы:
                 </div>
-                <div class="review-title">Best Movie!</div>
-                <div class="review-content">
-                    <span class="description"> 
-                        "The Gray Man," directed by the Russo brothers, features Ryan Gosling as a fugitive ex-CIA operative and Chris Evans as his ruthless pursuer. The film delivers intense action and global chases, with Gosling's cool demeanor perfectly contrasting Evans' menacing energy. Though the supporting cast is strong, the standout elements are the dynamic lead performances and expertly crafted action sequences.
-                    </span>
-                </div>
-                <hr>
-            </div>
-            <div class="review-item">
-                <div class="review-top">
-                    <div class="person">
-                        <img src="../media/darth.jpg" alt="" class="round-image image-avatar">
-                        <span>Name</span>
-                    </div>
-                </div>
-                <div class="review-title">Best Movie!</div>
-                <div class="review-content">
-                    <span class="description"> 
-                        "The Gray Man," directed by the Russo brothers, features Ryan Gosling as a fugitive ex-CIA operative and Chris Evans as his ruthless pursuer. The film delivers intense action and global chases, with Gosling's cool demeanor perfectly contrasting Evans' menacing energy. Though the supporting cast is strong, the standout elements are the dynamic lead performances and expertly crafted action sequences.
-                    </span>
-                </div>
-                <hr>
-            </div>
-            </div>
-            <form>
-                <div class="form-group">
-                <label for="InputText1"
-                    ><span class="movie-title">Your Review:</span></label
-                >
-                <textarea
-                    class="form-text"
-                    id="InputText1"
-                    rows="5"
-                ></textarea>
-                </div>
-
-                <button type="submit-new-answer" class="btn btn-success">
-                Submit
-                </button>
-            </form>
+                {% include "movieblog/comments.html" with film=film comments=comments %}
         </div>
 {% endblock content %}
 
