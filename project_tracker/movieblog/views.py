@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import CategoryModel, FilmModel, CommentModel
+from django.shortcuts import render, get_object_or_404
+from .models import CategoryModel, FilmModel, CommentModel, RateModel
 from django.views.generic import TemplateView
 from django.views import View
 from django.core.paginator import Paginator
@@ -9,6 +9,11 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 # from .models import Post
 from .forms import CommentForm
 from django.urls import reverse, reverse_lazy
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_protect
+import json
+from django.http import JsonResponse
+
 
 
 # def index(request, pk, slug):
@@ -123,6 +128,13 @@ class FilmPageView(DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
         context['comments'] = CommentModel.objects.filter(film=self.object)
+
+        try:
+            rating = RateModel.objects.get(movie=self.object, user=self.request.user)
+        except RateModel.DoesNotExist:
+            rating = None
+        context['rating'] = rating
+
         return context
     
 class TagPageView(View):
@@ -202,3 +214,64 @@ class DeleteCommentView(BaseCommentView, DeleteView):
     def get_success_url(self):
         comment = self.get_object()
         return reverse_lazy('movieblog:film_page', kwargs={'pk': comment.film.pk, 'slug': comment.film.slug})
+    
+
+
+def update_rating(movie_id):
+    movie = get_object_or_404(FilmModel, pk=movie_id)
+    ratings = RateModel.objects.filter(movie=movie)
+    sum_rating = 0
+    count_rating = 0
+    for rating in ratings:
+        sum_rating += rating.rate_number
+        count_rating += 1
+    print(sum_rating)
+    if count_rating != 0:
+        movie.rating = sum_rating / count_rating
+    else:
+        movie.rating = 0
+    movie.save()
+    return movie.rating
+    
+
+@require_http_methods(['POST'])
+@csrf_protect
+def RateMovie(request):
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'error': 'Not authenticated'}, status=401)
+    user = request.user
+
+    body_request = json.loads(request.body)
+    movie_id = body_request['movie_id']
+    rate_number = body_request['rate_number']
+
+    movie = get_object_or_404(FilmModel, pk=movie_id)
+
+    body_response = {}
+
+    try:
+        rate = RateModel.objects.get(user=user, movie=movie)
+        if(rate.rate_number == int(rate_number)):
+            rate.delete()
+        else:
+            rate.rate_number = rate_number
+            rate.save()
+    except:
+        rate = RateModel.objects.create(user=user, movie=movie, rate_number=rate_number)
+
+    body_response['movie_rating'] = update_rating(movie_id)
+    return JsonResponse(body_response)
+
+@require_http_methods(['POST'])
+@csrf_protect
+def AddToWhishlist(request):
+    # if not request.user.is_authenticated:
+    #     return JsonResponse({'error': 'Not authenticated'}, status=401)
+    user = request.user
+
+    body_request = json.loads(request.body)
+    movie_id = body_request['movie_id']
+
+    movie = get_object_or_404(FilmModel, pk=movie_id)
+
+    body_response = {}

@@ -3,8 +3,7 @@
         <div class="review-item">
             <div class="review-top">
                 <div class="person">
-                    <img src="#" alt="" class="round-image image-avatar">
-                    <a href="{% url 'user_app:user_profile' username=comment.user.username %}" class="link link-item">{{ comment.user }}</a>
+                    Пользователь: &nbsp<a href="{% url 'user_app:user_profile' username=comment.user.username %}" class="link link-item">{{ comment.user }}</a>
                 </div>
             </div>
             <div class="review-content">

@@ -12,6 +12,8 @@ sitemaps = {
 
 app_name = 'movieblog'
 urlpatterns = [
+    path("add_to_wishlist/", views.AddToWhishlist, name="add_to_wishlist"),
+    path("rate_movie/", views.RateMovie, name="rate_movie"),
     path('<int:pk>-<str:slug>/', views.IndexView.as_view(), name='index'),
     path('category/<int:pk>-<str:slug>/', views.CategoryPageView.as_view(), name='category_page'),
     path('film/<int:pk>-<str:slug>/', views.FilmPageView.as_view(), name='film_page'),
@@ -21,5 +23,4 @@ urlpatterns = [
     path("comment/add/<int:pk>/", views.AddCommentView.as_view(), name="add_comment"),  
     path("comment/edit/<int:pk>/", views.EditCommentView.as_view(), name="edit_comment"),  
     path("comment/delete/<int:pk>/", views.DeleteCommentView.as_view(), name="delete_comment"),
-    
 ]

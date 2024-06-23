@@ -3,24 +3,22 @@
 
 {% block content %}
     <div class="movie-content">
-        <div class="container mt-3">
-            <div class="title">Профиль пользователя {{ user_profile }}</div>
-                <div class="settings">
-                        <span>Имя пользователя: {{ user_profile }} </span>
-                        {% if user_profile.first_name %}
-                            <br>
-                            <b>Имя:</b> {{ user_profile.first_name }}
-                        {% endif %}
-                        {% if user_profile.last_name %}
-                            <br>
-                            <b>Фамилия:</b> {{ user_profile.last_name }}
-                        {% endif %}
-                    {% if user.is_authenticated %}            
-                    <a class="entrance__link link link-item"  
-                    href="{% url 'user_app:user_profile_settings' username=user_profile.username %}">Настройки профиля
-                </a>
+        <div class="title">Профиль пользователя {{ user_profile }}</div>
+            <div class="settings">
+                    <span>Имя пользователя: {{ user_profile }} </span>
+                    {% if user_profile.first_name %}
+                        <br>
+                        <b>Имя:</b> {{ user_profile.first_name }}
                     {% endif %}
-                </div>
+                    {% if user_profile.last_name %}
+                        <br>
+                        <b>Фамилия:</b> {{ user_profile.last_name }}
+                    {% endif %}
+                {% if user.is_authenticated %}            
+                <a class="entrance__link link link-item"  
+                href="{% url 'user_app:user_profile_settings' username=user_profile.username %}">Настройки профиля
+            </a>
+                {% endif %}
             </div>
         </div>
     </div>

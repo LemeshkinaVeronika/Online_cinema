@@ -8,7 +8,7 @@
                         {{ film.title }}
                     </div>
                     <div class="wishlist-button">
-                        <button class="btn btn-wishlist" id="wishlist">
+                        <button class="btn btn-wishlist" data-movie-id={{film.id}} id="wishlist">
                             <svg width="1rem" height="1rem" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 19.2674V7.84496C19 5.64147 17.4253 3.74489 15.2391 3.31522C13.1006 2.89493 10.8994 2.89493 8.76089 3.31522C6.57467 3.74489 5 5.64147 5 7.84496V19.2674C5 20.6038 6.46752 21.4355 7.63416 20.7604L10.8211 18.9159C11.5492 18.4945 12.4508 18.4945 13.1789 18.9159L16.3658 20.7604C17.5325 21.4355 19 20.6038 19 19.2674Z" stroke="#363853" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -36,22 +36,26 @@
                             </span>
                         </div>
                         <div class="movie-rating">
-                            <span class="rating">Rating 3.4/5</span>
+                            {% if film.rating == "0" %}
+                                <span class="rating">Рейтинг: Слишком мало оценок</span>
+                            {% else %}
+                                <span class="rating">Рейтинг: <span class="">{{film.rating}}</span>/5</span>
+                            {% endif %}
                         </div>
                         <div class="ranks">
-                            <button class="ranks__mark" id="toggle-mark">
+                            <button class="ranks__mark {% if rating.rate_number == 1 %}active-mark{% endif %}" id="toggle-mark" data-rate-number="1" data-movie-id={{film.id}}>
                                 <span>1</span>
                             </button>
-                            <button class="ranks__mark" id="toggle-mark">
+                            <button class="ranks__mark {% if rating.rate_number == 2 %}active-mark{% endif %}" id="toggle-mark" data-rate-number="2" data-movie-id={{film.id}}>
                                 <span>2</span>
                             </button>
-                            <button class="ranks__mark" id="toggle-mark">
+                            <button class="ranks__mark {% if rating.rate_number == 3 %}active-mark{% endif %}" id="toggle-mark" data-rate-number="3" data-movie-id={{film.id}}>
                                 <span>3</span>
                             </button>
-                            <button class="ranks__mark" id="toggle-mark">
+                            <button class="ranks__mark {% if rating.rate_number == 4 %}active-mark{% endif %}" id="toggle-mark" data-rate-number="4" data-movie-id={{film.id}}>
                                 <span>4</span>
                             </button>
-                            <button class="ranks__mark" id="toggle-mark">
+                            <button class="ranks__mark {% if rating.rate_number == 5 %}active-mark{% endif %}" id="toggle-mark" data-rate-number="5" data-movie-id={{film.id}}>
                                 <span>5</span>
                             </button>
                         </div>

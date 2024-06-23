@@ -101,12 +101,7 @@ class FilmModel(models.Model):
         ('4', '4'),
         ('5', '5'),
     ]
-    rating = models.CharField(
-        max_length=100,
-        choices=RATING_CHOICES,
-        default='0',
-        verbose_name='Рейтинг',
-    )
+    rating = models.IntegerField(default=0)
     full_body = CKEditor5Field(verbose_name='Основная информация')
     publish = models.DateTimeField(default=timezone.now,
                                    verbose_name="Опубликовано")
@@ -217,3 +212,14 @@ class CommentModel(MPTTModel):
 
     def str(self):
         return f'Комментарий от {self.user.username} на {self.film.title}'
+    
+class RateModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(FilmModel, on_delete=models.CASCADE)
+    rate_number = models.FloatField(default=0)
+
+    class Meta:
+        unique_together = [['user', 'movie']]
+        verbose_name = "Оценки"
+        verbose_name_plural = "Оценки"
+    
