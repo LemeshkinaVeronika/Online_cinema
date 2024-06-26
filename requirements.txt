@@ -4,3 +4,4 @@ django-mptt
 django_ckeditor_5
 django-taggit
 django.contrib.postgres
+djangorestframework
