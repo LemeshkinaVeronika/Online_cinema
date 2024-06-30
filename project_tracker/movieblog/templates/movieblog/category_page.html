@@ -15,12 +15,17 @@
             {% for film in films %}
                 <h2><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></h2>
                 <p>{{ film.short_body | safe }}</p>
+                <form method="post" action="{% url 'movieblog:remove_from_list' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="film_id" value="{{ film.id }}">
+                    <input type="hidden" name="list_type" value="{{ category.slug }}">
+                    <button type="submit">Удалить из {{ category.title }}</button>
+                </form>
                 <hr>
             {% endfor %}
             {% else %}
             <p>Пожалуйста, <a href="{% url 'user_app:login' %}">войдите</a>, чтобы увидеть этот список.</p>
-{% endif %}
+            {% endif %}
         </div>
     </section>
 {% endblock %}
-

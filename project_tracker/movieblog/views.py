@@ -6,79 +6,8 @@ from django.core.paginator import Paginator
 from movieblog import models, forms
 from django.db.models import Q
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-# from .models import Post
 from .forms import CommentForm, UserFilmListForm
 from django.urls import reverse, reverse_lazy
-
-
-
-# def index(request, pk, slug):
-#     category = CategoryModel.objects.get(pk=pk)
-#     descendant_categories = category.get_descendants(include_self=True)
-#     films = FilmModel.objects.filter(category__in=descendant_categories)
-
-
-#     context = {
-#         'category': category,
-#         'films': films,
-#     }
-#     return render(request,
-#                   'movieblog/index.html',
-#                   context)
-
-# def category_page(request, pk, slug):
-#     category = CategoryModel.objects.get(pk=pk)
-#     films = FilmModel.objects.filter(category=category)
-
-#     context = {
-#         'category': category,
-#         'films': films,
-#     }
-
-#     return render(request,
-#                   'movieblog/category_page.html',
-#                   context)
-# def film_page(request, pk, slug):
-#     film = FilmModel.objects.get(pk=pk)
-#     film.views += 1
-#     film.save()
-
-#     context = {
-#         'film': film,
-#     }
-
-#     return render(request,
-#                   'movieblog/film_page.html',
-#                   context)
-
-# def category_page(request, pk, slug):
-#     category = CategoryModel.objects.get(pk=pk)
-#     films = FilmModel.objects.filter(category=category)
-
-#     context = {
-#         'category': category,
-#         'films': films,
-#     }
-
-#     return render(request,
-#                       'movieblog/category_page.html',
-#                       context)
-
-# def tag_page(request, tag_name):
-#     films_list = FilmModel.objects.filter(tags__slug=tag_name).distinct()
-
-#     paginator = Paginator(films_list, 10)
-#     page_number = request.GET.get('page', 1)
-#     films = paginator.page(page_number)
-
-#     context = {
-#         'tag_name': tag_name,
-#         'films': films
-#     }
-
-#     return render(request,
-#                   'movieblog/tag_page.html',
-#                   context)
 
 
 class IndexView(View):
@@ -95,18 +24,6 @@ class IndexView(View):
         }
         return render(request, self.template_name, context)
 
-# class CategoryPageView(View):
-#     template_name = 'movieblog/category_page.html'
-
-#     def get(self, request, pk, slug):
-#         category = CategoryModel.objects.get(pk=pk)
-#         films = FilmModel.objects.filter(category=category)
-
-#         context = {
-#             'category': category,
-#             'films': films,
-#         }
-#         return render(request, self.template_name, context)
 class CategoryPageView(View):
     template_name = 'movieblog/category_page.html'
 
@@ -238,3 +155,15 @@ class AddToListView(View):
         
         return render(request, 'movieblog/add_to_list.html', {'form': form})
     
+class RemoveFromListView(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect('user_app:login')
+
+        film_id = request.POST.get('film_id')
+        list_type = request.POST.get('list_type')
+
+        user_film_list = get_object_or_404(UserFilmList, user=request.user, film_id=film_id, list_type=list_type)
+        user_film_list.delete()
+
+        return redirect('movieblog:category_page', pk=user_film_list.film.category.pk, slug=list_type)

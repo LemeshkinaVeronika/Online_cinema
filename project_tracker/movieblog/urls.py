@@ -22,5 +22,6 @@ urlpatterns = [
     path("comment/edit/<int:pk>/", views.EditCommentView.as_view(), name="edit_comment"),  
     path("comment/delete/<int:pk>/", views.DeleteCommentView.as_view(), name="delete_comment"),
     path('add_to_list/', views.AddToListView.as_view(), name='add_to_list'),
+    path('remove_from_list/', views.RemoveFromListView.as_view(), name='remove_from_list'),
     
 ]
