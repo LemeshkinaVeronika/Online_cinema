@@ -15,15 +15,65 @@
     <h2 class="mt-3 mb-3">Комментарии пользователей:</h2>
     {% if comments %}
         {% for comment in comments %}
-            <p><a href="{% url 'user_app:user_profile' username=comment.user.username %}">{{ comment.user }}</a>
-                | {{ comment.created_at }} | {% if comment.user == user or user.is_superuser %}
-                    <a href="{% url 'movieblog:edit_comment' pk=comment.pk %}">Редактировать</a> |
-                    <a href="{% url 'movieblog:delete_comment' pk=comment.pk %}">Удалить</a>
-                {% endif %}</p>
-            <p>{{ comment.content }}</p>
-            <hr>
+            <div class="comment" id="comment-{{ comment.id }}">
+                <p><a href="{% url 'user_app:user_profile' username=comment.user.username %}">{{ comment.user }}</a>
+                    | {{ comment.created_at }} | {% if comment.user == user or user.is_superuser %}
+                        <a href="{% url 'movieblog:edit_comment' pk=comment.pk %}">Редактировать</a> |
+                        <a href="{% url 'movieblog:delete_comment' pk=comment.pk %}">Удалить</a>
+                    {% endif %}</p>
+                <p>{{ comment.content }}</p>
+
+                {% if user.is_authenticated %}
+                    <button class="btn btn-outline-primary mt-1" type="button" onclick="showReplyForm('{{ comment.id }}', '{{ comment.user.username }}')">Ответить</button>
+                    <div id="reply-form-{{ comment.id }}" style="display:none; margin-top: 10px;">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'movieblog:add_comment' pk=film.pk %}">
+                            {% csrf_token %}
+                            {{ comment_form.content }}
+                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                            <input type="hidden" name="reply_to" value="{{ comment.user.username }}">
+                            <button class="btn btn-outline-primary mt-1" type="submit">Отправить</button>
+                        </form>
+                    </div>
+                {% endif %}
+
+                {% if comment.children.all %}
+                    <button class="btn btn-outline-secondary mt-1" type="button" onclick="toggleChildren('{{ comment.id }}')">Свернуть/Развернуть ответы</button>
+                    <div id="children-{{ comment.id }}" style="margin-left: 20px;">
+                        {% for child in comment.children.all %}
+                            <div class="comment" id="comment-{{ child.id }}">
+                                <p><a href="{% url 'user_app:user_profile' username=child.user.username %}">{{ child.user }}</a>
+                                    | {{ child.created_at }} | {% if child.user == user or user.is_superuser %}
+                                        <a href="{% url 'movieblog:edit_comment' pk=child.pk %}">Редактировать</a> |
+                                        <a href="{% url 'movieblog:delete_comment' pk=child.pk %}">Удалить</a>
+                                    {% endif %}</p>
+                                <p>{{ child.content }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
         {% endfor %}
     {% else %}
-        <p>Нет комментариев</p>
+        <p>Нет комментариев.</p>
     {% endif %}
 </div>
+
+<script>
+function showReplyForm(commentId, username) {
+    var form = document.getElementById('reply-form-' + commentId);
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+}
+
+function toggleChildren(commentId) {
+    var children = document.getElementById('children-' + commentId);
+    if (children.style.display === 'none') {
+        children.style.display = 'block';
+    } else {
+        children.style.display = 'none';
+    }
+}
+</script>

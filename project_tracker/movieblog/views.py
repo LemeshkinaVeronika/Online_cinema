@@ -120,7 +120,16 @@ class AddCommentView(BaseCommentView, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.film = FilmModel.objects.get(pk=self.kwargs.get("pk"))
-        return super().form_valid(form) 
+        parent_id = self.request.POST.get('parent_id')
+        reply_to = self.request.POST.get('reply_to')
+        
+        if parent_id:
+            form.instance.parent = CommentModel.objects.get(id=parent_id)
+        
+        if reply_to:
+            form.instance.content = f"@{reply_to} {form.instance.content}"
+        
+        return super().form_valid(form)
     
 class EditCommentView(BaseCommentView, UpdateView):  
     form_class = CommentForm  
