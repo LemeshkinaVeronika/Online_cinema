@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'user_app.apps.UserAppConfig', 
+    'utils_app.apps.UtilsAppConfig'
 ]
 
 MIDDLEWARE = [

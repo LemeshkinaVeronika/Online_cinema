@@ -11,4 +11,5 @@
     {% endfor %}  
     <button type="submit" class="btn btn-outline-success">Войти</button>  
     <p ><a href="{% url 'user_app:password_reset' %}">Забыли пароль?</a></p>
+    <p ><a href={% url 'movieblog:index' pk=18 slug='vse-filmy' %}>Вернуться на главную</a></p>
 </form>

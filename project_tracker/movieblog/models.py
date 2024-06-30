@@ -217,3 +217,14 @@ class CommentModel(MPTTModel):
 
     def str(self):
         return f'Комментарий от {self.user.username} на {self.film.title}'
+    
+class UserFilmList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='film_lists')
+    film = models.ForeignKey(FilmModel, on_delete=models.CASCADE, related_name='user_lists')
+    list_type = models.CharField(max_length=20, choices=[('izbrannoe', 'Избранное'), ('posmotreno', 'Просмотренное'), ('budu-smotret', 'Буду смотреть')])
+
+    class Meta:
+        unique_together = ('user', 'film', 'list_type')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.film.title} ({self.list_type})"

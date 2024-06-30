@@ -9,10 +9,21 @@
             <p>{{ film.full_body | safe }}</p>
         </div>
     </section>
+    <form action="{% url 'movieblog:add_to_list' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="film" value="{{ film.id }}">
+        <select name="list_type">
+            <option value="izbrannoe">Избранное</option>
+            <option value="posmotreno">Просмотренное</option>
+            <option value="budu-smotret">Буду смотреть</option>
+        </select>
+        <button type="submit">Добавить в список</button>
+    </form>
 {% for tag in film.tags.all %}
     <a href="{% url 'movieblog:tag_page' tag.slug %}"><span class="badge bg-success">{{ tag.name }}</span></a>
 {% endfor %}
 {% include "movieblog/comments.html" with film=film comments=comments %}
+
 {% endblock %}
 
 

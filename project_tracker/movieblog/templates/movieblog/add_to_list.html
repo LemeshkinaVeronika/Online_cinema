@@ -1,0 +1,10 @@
+{% extends "movieblog/base.html" %}
+
+{% block content %}
+  <h2>Добавить фильм в список</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить</button>
+  </form>
+{% endblock %}
