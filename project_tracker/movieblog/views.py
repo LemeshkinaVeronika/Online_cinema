@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import CategoryModel, FilmModel, CommentModel, RateModel
 from django.views.generic import TemplateView
 from django.views import View
@@ -129,8 +129,10 @@ class FilmPageView(DetailView):
         context['comment_form'] = CommentForm()
         context['comments'] = CommentModel.objects.filter(film=self.object)
 
+        rating = None
         try:
-            rating = RateModel.objects.get(movie=self.object, user=self.request.user)
+            if self.request.user.is_authenticated:
+                rating = RateModel.objects.get(movie=self.object, user=self.request.user)
         except RateModel.DoesNotExist:
             rating = None
         context['rating'] = rating
@@ -237,8 +239,8 @@ def update_rating(movie_id):
 @require_http_methods(['POST'])
 @csrf_protect
 def RateMovie(request):
-    # if not request.user.is_authenticated:
-    #     return JsonResponse({'error': 'Not authenticated'}, status=401)
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Not authenticated'}, status=401)
     user = request.user
 
     body_request = json.loads(request.body)

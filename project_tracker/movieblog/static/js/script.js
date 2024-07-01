@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(request)
               .then((response) => {
                   if(response.status === 401) {
-                      window.location.href = '/login'
+                      window.location.href = '/user/login'
                   }
                   else {
                       return response.json()
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
           fetch(request)
                 .then((response) => {
                     if(response.status === 401) {
-                        window.location.href = '/login'
+                        window.location.href = '/user/login'
                     }
                     else {
                         return response.json()
