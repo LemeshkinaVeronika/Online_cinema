@@ -1,4 +1,5 @@
 from django import forms
+from .models import UserFilmList
 from .models import CommentModel
 
 class SearchForm(forms.Form):
@@ -29,3 +30,8 @@ class CommentForm(forms.ModelForm):
     class Meta:  
         model = CommentModel  
         fields = ("content",)
+
+class UserFilmListForm(forms.ModelForm):
+    class Meta:
+        model = UserFilmList
+        fields = ['film', 'list_type']

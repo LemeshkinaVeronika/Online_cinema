@@ -152,6 +152,7 @@ span.entrance__link
 
 .movies
     display: grid
+    position: relative
     grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
     grid-gap: 1.5rem
     white-space: nowrap
@@ -441,4 +442,29 @@ form
 .settings
     display: flex
     flex-direction: column
-    line-height: 2rem
+    line-height: 2rem    
+
+.minus-block
+    position: absolute
+    left: 6rem
+    top: .3rem
+
+.minus
+    width: 1.5rem
+    height: 1.5rem
+    background: red
+    border-radius: 5rem
+    text-align: center
+    border: 1px black solid
+    cursor: pointer
+    color: white
+    &:hover
+        background-color: #5E0D0D
+        color: white
+    &:active
+        box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+        background-color: var(--color-tab-button)
+
+
+.line-review
+    margin-bottom: .3rem

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import CategoryModel, FilmModel, CommentModel, RateModel
+from .models import CategoryModel, FilmModel, CommentModel, RateModel, UserFilmList
 from django.views.generic import TemplateView
 from django.views import View
 from django.core.paginator import Paginator
@@ -7,7 +7,7 @@ from movieblog import models, forms
 from django.db.models import Q
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 # from .models import Post
-from .forms import CommentForm
+from .forms import CommentForm, UserFilmListForm
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_protect
@@ -103,8 +103,13 @@ class CategoryPageView(View):
     template_name = 'movieblog/category_page.html'
 
     def get(self, request, pk, slug):
+        if not request.user.is_authenticated:
+            return redirect(reverse('user_app:login'))
         category = CategoryModel.objects.get(pk=pk)
         films = FilmModel.objects.filter(category=category)
+
+        user_film_lists = UserFilmList.objects.filter(user=request.user, list_type=slug)
+        films = [user_film_list.film for user_film_list in user_film_lists]
 
         context = {
             'category': category,
@@ -199,7 +204,16 @@ class AddCommentView(BaseCommentView, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.film = FilmModel.objects.get(pk=self.kwargs.get("pk"))
-        return super().form_valid(form) 
+        parent_id = self.request.POST.get('parent_id')
+        reply_to = self.request.POST.get('reply_to')
+
+        if parent_id:
+            form.instance.parent = CommentModel.objects.get(id=parent_id)
+
+        if reply_to:
+            form.instance.content = f"@{reply_to} {form.instance.content}"
+
+        return super().form_valid(form)
     
 class EditCommentView(BaseCommentView, UpdateView):  
     form_class = CommentForm  
@@ -264,16 +278,34 @@ def RateMovie(request):
     body_response['movie_rating'] = update_rating(movie_id)
     return JsonResponse(body_response)
 
-@require_http_methods(['POST'])
-@csrf_protect
-def AddToWhishlist(request):
-    # if not request.user.is_authenticated:
-    #     return JsonResponse({'error': 'Not authenticated'}, status=401)
-    user = request.user
 
-    body_request = json.loads(request.body)
-    movie_id = body_request['movie_id']
+class AddToListView(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect('login')
 
-    movie = get_object_or_404(FilmModel, pk=movie_id)
+        form = UserFilmListForm(request.POST)
+        if form.is_valid():
+            user_film_list = form.save(commit=False)
+            user_film_list.user = request.user
+            try:
+                user_film_list.save()
+                return redirect('movieblog:film_page', pk=user_film_list.film.pk, slug=user_film_list.film.slug)
+            except:
+                form.add_error(None, "Этот фильм уже добавлен в этот список.")
 
-    body_response = {}
+        return render(request, 'movieblog/add_to_list.html', {'form': form})
+
+
+class RemoveFromListView(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect('user_app:login')
+
+        film_id = request.POST.get('film_id')
+        list_type = request.POST.get('list_type')
+
+        user_film_list = get_object_or_404(UserFilmList, user=request.user, film_id=film_id, list_type=list_type)
+        user_film_list.delete()
+
+        return redirect('movieblog:category_page', pk=user_film_list.film.category.pk, slug=list_type)

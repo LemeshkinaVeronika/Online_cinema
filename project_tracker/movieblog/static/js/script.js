@@ -14,6 +14,25 @@ function getCookie(name) {
     return cookieValue;
 }
 
+
+function showReplyForm(commentId, username) {
+    var form = document.getElementById('reply-form-' + commentId);
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+}
+
+function toggleChildren(commentId) {
+    var children = document.getElementById('children-' + commentId);
+    if (children.style.display === 'none') {
+        children.style.display = 'block';
+    } else {
+        children.style.display = 'none';
+    }
+}
+
 const navItems = document.querySelectorAll('.navbar__item');
 const currentUrl = window.location.href;
 
@@ -36,35 +55,10 @@ document.getElementById('theme-switcher').addEventListener('click', function() {
   });
 
   
-document.getElementById('wishlist').addEventListener('click', function(){
-    this.classList.toggle('active-wishlist')
-});
+// document.getElementById('wishlist').addEventListener('click', function(){
+//     this.classList.toggle('active-wishlist')
+// });
   
-document.addEventListener('DOMContentLoaded', function() {
-    const button = document.querySelector('btn-wishlist')
-    const movieId = button.dataset.movieId
-    button.addEventListener('click', function() {
-        const request = new Request(`/movieblog/add_to_wishlist/`, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken'),
-            },
-            body: JSON.stringify({
-                movie_id: movieId
-            })
-        })
-        fetch(request)
-              .then((response) => {
-                  if(response.status === 401) {
-                      window.location.href = '/user/login'
-                  }
-                  else {
-                      return response.json()
-                  }
-              })
-    })
-})
 
 document.addEventListener('DOMContentLoaded', function() {
   const buttons = document.querySelectorAll('.ranks__mark')
@@ -72,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   buttons.forEach(button => {
       button.addEventListener('click', function() {
+        console.log('check')
         if (this.classList.contains('active-mark')) {
           this.classList.remove('active-mark');
         } else {
