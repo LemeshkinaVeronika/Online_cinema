@@ -6,83 +6,12 @@ from django.core.paginator import Paginator
 from movieblog import models, forms
 from django.db.models import Q
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-# from .models import Post
 from .forms import CommentForm, UserFilmListForm
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_protect
 import json
 from django.http import JsonResponse
-
-
-
-# def index(request, pk, slug):
-#     category = CategoryModel.objects.get(pk=pk)
-#     descendant_categories = category.get_descendants(include_self=True)
-#     films = FilmModel.objects.filter(category__in=descendant_categories)
-
-
-#     context = {
-#         'category': category,
-#         'films': films,
-#     }
-#     return render(request,
-#                   'movieblog/index.html',
-#                   context)
-
-# def category_page(request, pk, slug):
-#     category = CategoryModel.objects.get(pk=pk)
-#     films = FilmModel.objects.filter(category=category)
-
-#     context = {
-#         'category': category,
-#         'films': films,
-#     }
-
-#     return render(request,
-#                   'movieblog/category_page.html',
-#                   context)
-# def film_page(request, pk, slug):
-#     film = FilmModel.objects.get(pk=pk)
-#     film.views += 1
-#     film.save()
-
-#     context = {
-#         'film': film,
-#     }
-
-#     return render(request,
-#                   'movieblog/film_page.html',
-#                   context)
-
-# def category_page(request, pk, slug):
-#     category = CategoryModel.objects.get(pk=pk)
-#     films = FilmModel.objects.filter(category=category)
-
-#     context = {
-#         'category': category,
-#         'films': films,
-#     }
-
-#     return render(request,
-#                       'movieblog/category_page.html',
-#                       context)
-
-# def tag_page(request, tag_name):
-#     films_list = FilmModel.objects.filter(tags__slug=tag_name).distinct()
-
-#     paginator = Paginator(films_list, 10)
-#     page_number = request.GET.get('page', 1)
-#     films = paginator.page(page_number)
-
-#     context = {
-#         'tag_name': tag_name,
-#         'films': films
-#     }
-
-#     return render(request,
-#                   'movieblog/tag_page.html',
-#                   context)
 
 
 class IndexView(View):
