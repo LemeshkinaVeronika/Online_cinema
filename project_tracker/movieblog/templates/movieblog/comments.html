@@ -3,7 +3,8 @@
         <div class="review-item">
             <div class="review-top">
                 <div class="person">
-                    Пользователь: &nbsp<a href="{% url 'user_app:user_profile' username=comment.user.username %}" class="link link-item">{{ comment.user }}</a>
+                    <img src="{{ comment.user.profile.user_avatar.url }}" alt="{{ comment.user.username }}" class="avatar">
+                    Пользователь: &nbsp;<a href="{% url 'user_app:user_profile' username=comment.user.username %}" class="link link-item">{{ comment.user }}</a>
                 </div>
             </div>
             <div class="review-content">
@@ -13,7 +14,7 @@
                     | {{ comment.created_at }} | {% if comment.user == user or user.is_superuser %}
                     <a href="{% url 'movieblog:edit_comment' pk=comment.pk %}" class="link-comment">Редактировать</a> |
                     <a href="{% url 'movieblog:delete_comment' pk=comment.pk %}" class="link-comment">Удалить</a>
-                    {% endif %}</p>
+                    {% endif %}
                 </span>
             </div>
             <hr class="line-review">
@@ -31,30 +32,24 @@
                 </div>
             {% endif %}
 
-
-
-
             {% if comment.children.all %}
-                    <button class="btn btn-outline-secondary mt-1" type="button" onclick="toggleChildren('{{ comment.id }}')">Свернуть/Развернуть ответы</button>
-                    <div id="children-{{ comment.id }}" style="margin-left: 20px;">
-                        {% for child in comment.children.all %}
-                            <div class="comment" id="comment-{{ child.id }}">
-                                <span class="description">{{ child.content }}</span><br>
-                                <span class="description"><a href="{% url 'user_app:user_profile' username=child.user.username %}" class="link-item description">{{ child.user }}</a>
-                                    | {{ child.created_at }} | {% if child.user == user or user.is_superuser %}
-                                        <a href="{% url 'movieblog:edit_comment' pk=child.pk %}" class="link-comment">Редактировать</a> |
-                                        <a href="{% url 'movieblog:delete_comment' pk=child.pk %}" class="link-comment">Удалить</a>
-                                    {% endif %}</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-
+                <button class="btn btn-outline-secondary mt-1" type="button" onclick="toggleChildren('{{ comment.id }}')">Свернуть/Развернуть ответы</button>
+                <div id="children-{{ comment.id }}" style="margin-left: 20px;">
+                    {% for child in comment.children.all %}
+                        <div class="comment" id="comment-{{ child.id }}">
+                            <img src="{{ child.user.profile.user_avatar.url }}" alt="{{ child.user.username }}" class="avatar">
+                            <span class="description">{{ child.content }}</span><br>
+                            <span class="description"><a href="{% url 'user_app:user_profile' username=child.user.username %}" class="link-item description">{{ child.user }}</a>
+                                | {{ child.created_at }} | {% if child.user == user or user.is_superuser %}
+                                    <a href="{% url 'movieblog:edit_comment' pk=child.pk %}" class="link-comment">Редактировать</a> |
+                                    <a href="{% url 'movieblog:delete_comment' pk=child.pk %}" class="link-comment">Удалить</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
-
-
-
     {% endfor %}
 {% else %}
     <p class="review-item">Нет отзывов</p>

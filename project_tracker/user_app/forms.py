@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation  
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm, PasswordChangeForm
+from movieblog import models
+from user_app.models import ProfileModel
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -167,3 +169,60 @@ class UserPasswordForm(PasswordChangeForm):
             'placeholder': 'Повторите новый пароль'  
         })  
     )
+
+class ProfileForm(forms.ModelForm):  
+    gender = forms.ChoiceField(  
+        label='Пол',  
+        choices=ProfileModel.Genders.choices,  
+        required=False,  
+        widget=forms.Select(  
+            attrs={  
+                'class': 'form-select',  
+            }  
+        )  
+    )  
+    dob = forms.DateField(  
+        label='Дата рождения',  
+        required=False,  
+        widget=forms.DateInput(  
+            format='%Y-%m-%d',  
+            attrs={  
+                'type': 'date',  
+                'class': 'form-control',  
+            }  
+        )  
+    )  
+
+  
+    user_avatar = forms.FileField(  
+        label='Аватарка',  
+        required=False,  
+        widget=forms.FileInput(  
+            attrs={  
+                'type': 'file',  
+                'class': 'form-control',  
+            }  
+        )  
+    )  
+
+    show_last_name = forms.BooleanField(  
+        required=False,  
+        widget=forms.CheckboxInput(  
+            attrs={  
+                'class': 'form-check-input mt-0',  
+            }  
+        )  
+    )  
+    show_email = forms.BooleanField(  
+        required=False,  
+        widget=forms.CheckboxInput(  
+            attrs={  
+                'class': 'form-check-input mt-0',  
+            }  
+        )  
+    )  
+    
+
+    class Meta:  
+        model = ProfileModel  
+        fields = ['gender', 'dob', 'user_avatar', 'show_last_name', 'show_email']

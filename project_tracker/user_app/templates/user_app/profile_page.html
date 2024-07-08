@@ -1,25 +1,51 @@
-{% extends 'movieblog/base.html' %}
-{% block title %}{{ title }}{% endblock %}
-
-{% block content %}
-    <div class="movie-content">
-        <div class="title">Профиль пользователя {{ user_profile }}</div>
-            <div class="settings">
-                    <span>Имя пользователя: {{ user_profile }} </span>
-                    {% if user_profile.first_name %}
-                        <br>
-                        <b>Имя:</b> {{ user_profile.first_name }}
-                    {% endif %}
-                    {% if user_profile.last_name %}
-                        <br>
-                        <b>Фамилия:</b> {{ user_profile.last_name }}
-                    {% endif %}
-                {% if user.is_authenticated %}            
-                <a class="entrance__link link link-item"  
-                href="{% url 'user_app:user_profile_settings' username=user_profile.username %}">Настройки профиля
-            </a>
-                {% endif %}
-            </div>
-        </div>
+<div class="col-xl-4 col-sm-12 border border-start border-0Z">
+    <h3 class="mb-3 text-center">Информация:</h3>
+    <div class="col-12 text-center">
+        <img src="{{ user_profile.profile.user_avatar.url }}" alt="{{ user_profile }}" width="300"
+             height="300" class="img-fluid"><br>
+        {% for group in user_profile.groups.all %}
+            <span class="badge border mt-3 lead">{{ group.name }}</span>
+        {% endfor %}
     </div>
-{% endblock %}
+    <div class="col-12 ms-3 mt-4">
+        <b>Имя пользователя:</b> {{ user_profile }}
+        <hr class="mb-0">
+        {% if user_profile.first_name %}
+            <br>
+            <b>Имя:</b> {{ user_profile.first_name }}
+        {% endif %}
+        {% if user_profile.last_name and user_profile.profile.show_last_name %}
+            <br>
+            <b>Фамилия:</b> {{ user_profile.last_name }}
+        {% endif %}
+        <br>
+        <b>Пол:</b> {{ user_profile.profile.get_gender_display }}
+        {% if user_profile.profile.dob %}
+            <br>
+            <b>Возраст:</b> {{ user_profile.profile.get_age }}
+        {% endif %}
+        <br>
+        <b>На сайте:</b> {{ user_profile.profile.get_on_site }}
+        <hr class="mb-0">
+        {% if user_profile.profile.show_email %}
+            <br>
+            <b>Email:</b> {{ user_profile.email }}
+        {% endif %}
+        {% if user_profile.profile.show_telegram %}
+            <br>
+            <b>Ссылка на Telegram:</b> <a
+                href="{{ user_profile.profile.telegram_link }}">{{ user_profile.profile.get_telegram_username }}</a>
+        {% endif %}
+        {% if user_profile.profile.site_link %}
+            <br>
+            <b>Личный сайт:</b> {{ user_profile.profile.site_link }}
+        {% endif %}
+    </div>
+    <div class="col-12 text-center mt-5">
+        {% if user_profile %}
+            <a class="btn btn-primary my-btn"
+               href="{% url 'user_app:user_profile_settings' username=user_profile.username %}">Настройки
+                профиля</a>
+        {% endif %}
+    </div>
+</div>
