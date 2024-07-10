@@ -16,3 +16,8 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = "utils_app.exception_handlers.bad_request_handler"  
+handler403 = "utils_app.exception_handlers.permission_denied_handler"  
+handler404 = "utils_app.exception_handlers.page_not_found_handler"  
+handler500 = "utils_app.exception_handlers.server_error_handler"

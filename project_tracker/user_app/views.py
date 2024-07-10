@@ -12,7 +12,8 @@ from django.http import HttpResponseForbidden
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import TemplateView
-from user_app.forms import UserInfoForm, UserPasswordForm 
+from user_app.forms import UserInfoForm, UserPasswordForm, ProfileForm 
+from movieblog import forms
 
 class CustomLoginView(LoginView):
     authentication_form = LoginForm
@@ -75,20 +76,24 @@ class UserSettingsView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):  
         context = super().get_context_data(**kwargs)  
         context['user_info_form'] = UserInfoForm(instance=self.request.user)  
+        context['user_profile_form'] = ProfileForm(instance=self.request.user.profile)  
         context['user_password_form'] = UserPasswordForm(self.request.user)  
         context['title'] = f'Настройки профиля {self.request.user}'  
         return context  
 
     def post(self, request, *args, **kwargs):  
         if 'user_info_form' in request.POST:  
-            form = UserInfoForm(request.POST, instance=request.user)  
-            if form.is_valid():  
-                form.save()  
+            user_info_form = UserInfoForm(request.POST, instance=request.user)  
+            user_profile_form = ProfileForm(request.POST, request.FILES, instance=self.request.user.profile)  
+            if user_info_form.is_valid() and user_profile_form.is_valid():  
+                user_info_form.save()  
+                user_profile_form.save()  
                 messages.success(request, 'Данные успешно изменены.')  
-                return redirect('user_app:user_profile_settings', form.cleaned_data.get('username'))  
+                return redirect('user_app:user_profile_settings', user_info_form.cleaned_data.get('username'))  
             else:  
                 context = self.get_context_data(**kwargs)  
-                context['user_info_form'] = form  
+                context['user_info_form'] = user_info_form  
+                context['user_profile_form'] = user_profile_form  
                 return render(request, self.template_name, context)  
         elif 'user_password_form' in request.POST:  
             form = UserPasswordForm(request.user, request.POST)  

@@ -83,6 +83,8 @@ class FilmModel(models.Model):
 
     title = models.CharField(max_length=200,
                              verbose_name="Название")
+    link_to_player = models.CharField(max_length=200,
+                             verbose_name="Ссылка на плеер", default="")
     slug = models.SlugField(verbose_name="Альт. название")
     image = models.ImageField(upload_to='film/%Y/%m/%d',
                               default='default/not_found.png',
@@ -101,12 +103,7 @@ class FilmModel(models.Model):
         ('4', '4'),
         ('5', '5'),
     ]
-    rating = models.CharField(
-        max_length=100,
-        choices=RATING_CHOICES,
-        default='0',
-        verbose_name='Рейтинг',
-    )
+    rating = models.IntegerField(default=0)
     full_body = CKEditor5Field(verbose_name='Основная информация')
     publish = models.DateTimeField(default=timezone.now,
                                    verbose_name="Опубликовано")
@@ -217,3 +214,25 @@ class CommentModel(MPTTModel):
 
     def str(self):
         return f'Комментарий от {self.user.username} на {self.film.title}'
+    
+class UserFilmList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='film_lists')
+    film = models.ForeignKey(FilmModel, on_delete=models.CASCADE, related_name='user_lists')
+    list_type = models.CharField(max_length=20, choices=[('izbrannoe', 'Избранное'), ('posmotreno', 'Просмотренное'), ('budu-smotret', 'Буду смотреть')])
+
+    class Meta:
+        unique_together = ('user', 'film', 'list_type')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.film.title} ({self.list_type})"
+    
+class RateModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(FilmModel, on_delete=models.CASCADE)
+    rate_number = models.FloatField(default=0)
+
+    class Meta:
+        unique_together = [['user', 'movie']]
+        verbose_name = "Оценки"
+        verbose_name_plural = "Оценки"
+    

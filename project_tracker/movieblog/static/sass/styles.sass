@@ -1,7 +1,10 @@
+@media screen and (min-width: 200px)
+    *
+        font-size: 6px
 @media screen and (min-width: 600px)
     *
         font-size: 12px
-@media screen and (min-width: 900px)
+@media screen and (min-width: 1071px)
     *
         font-size: 22px
 @media screen and (min-width: 1441px)
@@ -125,11 +128,14 @@ span.entrance__link
 
 .search-item
     width: 22rem
-    padding-top: 0.3rem
-    padding-bottom: 0.3rem
-    background-color: var(--form-color)
-    padding-left: 1rem
-    border: none
+    margin-right: .3rem
+.search-line
+    display: flex
+    flex-direction: row
+
+.row-search
+    display: flex
+    flex-direction: row
 
 .link-border
     border-radius: 1.5rem
@@ -152,6 +158,7 @@ span.entrance__link
 
 .movies
     display: grid
+    position: relative
     grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
     grid-gap: 1.5rem
     white-space: nowrap
@@ -328,6 +335,7 @@ span.entrance__link
     text-decoration: none
     color: var(--color-person)
     .image-avatar
+        border-radius: 50rem
         object-fit: cover
         width: 2rem
         height: 2rem
@@ -441,4 +449,77 @@ form
 .settings
     display: flex
     flex-direction: column
-    line-height: 2rem
+    line-height: 2rem    
+
+.minus-block
+    position: absolute
+    left: 6rem
+    top: .3rem
+
+.minus
+    width: 1.5rem
+    height: 1.5rem
+    background: red
+    border-radius: 5rem
+    text-align: center
+    border: 1px black solid
+    cursor: pointer
+    color: white
+    &:hover
+        background-color: #5E0D0D
+        color: white
+    &:active
+        box-shadow: 0 2px 4px rgba(92, 87, 87, 0.4)
+        background-color: var(--color-tab-button)
+
+
+.line-review
+    margin-bottom: .3rem
+
+.comment-review
+    margin-bottom: .6rem
+
+.children-answer
+    margin-bottom: .5rem
+
+.profile
+    display: flex
+    // justify-content: space-around
+
+.profile-right
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+.profile-left
+    margin-right: 2rem
+
+.info
+    margin-bottom: 1rem
+
+.profile-avatar
+    height: 13rem
+    width: 13rem
+
+.bottom-settings
+    margin-top: .5rem
+
+.border
+    border: 1px black solid
+
+.category-movie
+    position: relative
+
+svg
+    width: 30px 
+    height: 30px
+
+.settings-block
+    margin-bottom: .5rem
+    width: 33rem
+
+.form-control#id_user_avatar
+    all: unset
+
+.settings-block p
+    margin-bottom: .5rem

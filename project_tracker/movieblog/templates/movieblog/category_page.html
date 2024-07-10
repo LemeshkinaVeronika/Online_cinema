@@ -7,9 +7,19 @@
             </div>
             <div class="movies">
                 {% for film in films %}
-                    <a href="{{ film.get_absolute_url }}" class="movie-item">
-                        <img src="{{ film.image.url }}" alt="" class="movie-image">
-                    </a>
+                    <div class="category-movie">
+                        <a href="{{ film.get_absolute_url }}" class="movie-item">
+                            <img src="{{ film.image.url }}" alt="" class="movie-image">
+                        </a>
+                        <div class="minus-block">
+                            <form method="post" action="{% url 'movieblog:remove_from_list' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="film_id" value="{{ film.id }}">
+                                <input type="hidden" name="list_type" value="{{ category.slug }}">
+                                <button type="submit" class="minus">-</button>
+                            </form>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
