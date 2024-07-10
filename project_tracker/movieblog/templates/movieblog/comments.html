@@ -58,7 +58,7 @@
     <p class="review-item">Нет отзывов</p>
 {% endif %}
 
-<span class="movie-title">Добавить комментарий:</span>
+<span class="movie-title">Добавить отзыв:</span>
 {% if user.is_authenticated %}
     <form method="post" enctype="multipart/form-data" action="{% url 'movieblog:add_comment' pk=film.pk %}">
         {% csrf_token %}
