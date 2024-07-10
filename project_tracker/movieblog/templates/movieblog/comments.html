@@ -3,7 +3,7 @@
         <div class="review-item">
             <div class="review-top">
                 <div class="person">
-                    <img src="{{ comment.user.profile.user_avatar.url }}" alt="{{ comment.user.username }}" class="avatar">
+                    <img class="image-avatar" src="{{ comment.user.profile.user_avatar.url }}" alt="{{ comment.user.username }}" class="avatar">
                     Пользователь: &nbsp;<a href="{% url 'user_app:user_profile' username=comment.user.username %}" class="link link-item">{{ comment.user }}</a>
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <hr class="line-review">
 
             {% if user.is_authenticated %}
-                <button class="btn btn-outline-primary mt-1" type="button" onclick="showReplyForm('{{ comment.id }}', '{{ comment.user.username }}')">Ответить</button>
+                <button class="btn btn-outline-primary comment-review" type="button" onclick="showReplyForm('{{ comment.id }}', '{{ comment.user.username }}')">Ответить</button>
                 <div id="reply-form-{{ comment.id }}" style="display:none; margin-top: 10px;">
                     <form method="post" enctype="multipart/form-data" action="{% url 'movieblog:add_comment' pk=film.pk %}">
                         {% csrf_token %}
@@ -36,10 +36,13 @@
                 <button class="btn btn-outline-secondary mt-1" type="button" onclick="toggleChildren('{{ comment.id }}')">Свернуть/Развернуть ответы</button>
                 <div id="children-{{ comment.id }}" style="margin-left: 20px;">
                     {% for child in comment.children.all %}
-                        <div class="comment" id="comment-{{ child.id }}">
-                            <img src="{{ child.user.profile.user_avatar.url }}" alt="{{ child.user.username }}" class="avatar">
+                        <div class="children-answer" id="comment-{{ child.id }}">
+                            <div class="person">
+                                <img class="image-avatar" src="{{ child.user.profile.user_avatar.url }}" alt="{{ child.user.username }}">
+                                <a href="{% url 'user_app:user_profile' username=child.user.username %}" class="link-item description">{{ child.user }}</a>
+                            </div>
                             <span class="description">{{ child.content }}</span><br>
-                            <span class="description"><a href="{% url 'user_app:user_profile' username=child.user.username %}" class="link-item description">{{ child.user }}</a>
+                            <span class="description">
                                 | {{ child.created_at }} | {% if child.user == user or user.is_superuser %}
                                     <a href="{% url 'movieblog:edit_comment' pk=child.pk %}" class="link-comment">Редактировать</a> |
                                     <a href="{% url 'movieblog:delete_comment' pk=child.pk %}" class="link-comment">Удалить</a>

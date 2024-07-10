@@ -13,7 +13,11 @@
                 {% for field in form %}
                     <div class="form-group">
                         <p class="form-label">{{ field.label }}</p>  
-                        <input type="text" id="{{ field.id }}" class="form-control" name="{{ field.name }}" value="">
+                        {% if field.name == 'password' %}
+                            <input type="password" id="{{ field.id }}" class="form-control" name="{{ field.name }}" value="">
+                        {% else %}
+                            <input type="text" id="{{ field.id }}" class="form-control" name="{{ field.name }}" value="">
+                        {% endif %}
                     </div>
                 {% endfor %} 
                 <button type="submit" class="btn search-link link-border">Войти</button>  

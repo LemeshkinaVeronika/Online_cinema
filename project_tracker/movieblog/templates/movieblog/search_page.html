@@ -14,10 +14,12 @@
                             {% for film in results %}
                                 <div class="row-search">
                                     <div class="movie-item">
-                                        <img src="{{ film.image.url }}" alt="{{ film.title }}" class="movie-image">
+                                        <a href="{{ film.get_absolute_url }}">
+                                            <img src="{{ film.image.url }}" alt="{{ film.title }}" class="movie-image">
+                                        </a>
                                     </div>                                
                                     <div class="movie-se">
-                                        <a href="{{ film.get_absolute_url }}" class="link-comment">{{ film.title }}</a>
+                                        <p class="movie-title">{{ film.title }}</p>
                                             <p class="description"><a
                                                     href="{{ film.category.get_absolute_url }}" class="link-comment">{{ film.category }}</a>
                                                 | {{ film.director }} | {{ film.publish | date:"d F Y" }} |

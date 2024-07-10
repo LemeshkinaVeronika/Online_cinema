@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   buttons.forEach(button => {
       button.addEventListener('click', function() {
-        console.log('check')
         if (this.classList.contains('active-mark')) {
           this.classList.remove('active-mark');
         } else {
@@ -102,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     else {
                         movie_rating.innerHTML = "Рейтинг: Слишком мало оценок"
                     }
-                    console.log(data.movie_rating)
                 })
       });
   });

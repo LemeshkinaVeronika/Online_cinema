@@ -17,12 +17,12 @@
                         <form action="{% url 'movieblog:add_to_list' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="film" value="{{ film.id }}">
-                            <select name="list_type">
+                            <select class="btn search-link border" name="list_type">
                                 <option value="budu-smotret">Желаемое</option>
                                 <option value="posmotreno">Просмотренное</option>
                                 <option value="izbrannoe">Избранное</option>
                             </select>
-                            <button type="submit">Добавить в список</button>
+                            <button class="btn search-link link-border" type="submit">Добавить в список</button>
                         </form>
                     </div>
                 </div>
