@@ -18,6 +18,7 @@ class ProfileModel(models.Model):
                                 on_delete=models.CASCADE,  
                                 related_name='profile',  
                                 verbose_name='Пользователь')  
+    
     gender = models.CharField(max_length=1,  
                               choices=Genders.choices,  
                               default=Genders.UNDEFINED,  
@@ -34,7 +35,7 @@ class ProfileModel(models.Model):
                                      verbose_name='Отображать Email?')  
     show_last_name = models.BooleanField(default=False,  
                                          verbose_name='Отображать фамилию?')  
-
+    
     class Meta:  
         verbose_name = 'Профиль'  
         verbose_name_plural = 'Профили'  

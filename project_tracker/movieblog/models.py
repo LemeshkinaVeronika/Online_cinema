@@ -93,6 +93,9 @@ class FilmModel(models.Model):
                               on_delete=models.PROTECT,
                               related_name='film',
                               verbose_name='Категория')
+    link_to_player = models.CharField(max_length=200,
+                             verbose_name="Ссылка на плеер", default="")
+
     RATING_CHOICES = [
         ('0', '0'),
         ('1', '1'),
